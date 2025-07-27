@@ -1,0 +1,107 @@
+<style>
+    :host {
+        display: block;
+
+        /* Host colors using light-dark() */
+        --color-host-bg: transparent;
+        --color-host-text: light-dark(oklch(20% 0.01 260), oklch(95% 0.01 260));
+
+        /* Frame colors */
+        --color-frame-bg: light-dark(oklch(96% 0.005 260), oklch(24% 0.01 260));
+        --color-frame-border: light-dark(oklch(90% 0.01 260), oklch(35% 0.01 260));
+
+        /* Summary colors */
+        --color-summary-bg: var(--color-frame-bg);
+        --color-summary-file-text: light-dark(oklch(20% 0.01 260), oklch(95% 0.01 260));
+        --color-summary-function-text: light-dark(oklch(20% 0.01 260 / 0.8), oklch(95% 0.01 260 / 0.8));
+
+        /* Body colors */
+        --color-body-bg: light-dark(oklch(98% 0.005 260), oklch(18% 0.01 260));
+
+        /* Code lines colors */
+        --color-code-lines-bg: var(--color-body-bg);
+        --color-code-lines-text: light-dark(oklch(20% 0.01 260), oklch(95% 0.01 260));
+
+        /* Border radius */
+        --border-radius-frame: 0.375rem;
+
+        /* Spacing */
+        --space-summary-padding-block: 1rem;
+        --space-summary-padding-inline: 1rem;
+        --space-summary-gap: 0.25rem;
+        --space-body-padding: 0;
+
+        /* Typography */
+        --font-size-summary-file: 1rem;
+        --font-weight-summary-file: 700;
+        --font-size-summary-function: 0.95rem;
+        --font-family-code: 'JetBrains Mono', 'Consolas', 'Monaco', monospace;
+
+        color: var(--color-host-text);
+        background: var(--color-host-bg);
+    }
+
+    .error-frame {
+        background-color: var(--color-frame-bg);
+        border-radius: var(--border-radius-frame);
+        border: 1px solid var(--color-frame-border);
+        overflow: hidden;
+    }
+
+    details[open] > summary {
+        border-end-start-radius: 0;
+        border-end-end-radius: 0;
+    }
+
+    .error-frame__summary {
+        padding-block: var(--space-summary-padding-block);
+        padding-inline: var(--space-summary-padding-inline);
+        border-block-end: 1px solid var(--color-frame-border);
+        cursor: pointer;
+        background-color: var(--color-summary-bg);
+        border-radius: var(--border-radius-frame);
+        display: flex;
+        flex-direction: column;
+        gap: var(--space-summary-gap);
+        list-style: none;
+    }
+
+    .error-frame__summary::-webkit-details-marker {
+        display: none;
+    }
+
+    .error-frame__file {
+        margin: 0;
+        font-size: var(--font-size-summary-file);
+        font-weight: var(--font-weight-summary-file);
+        color: var(--color-summary-file-text);
+    }
+
+    .error-frame__function {
+        font-size: var(--font-size-summary-function);
+        color: var(--color-summary-function-text);
+    }
+
+    .error-frame__body {
+        padding: var(--space-body-padding);
+        background: var(--color-body-bg);
+    }
+
+    .code-lines {
+        margin: 0;
+        padding: 0;
+        background: var(--color-code-lines-bg);
+        overflow-x: auto;
+        color: var(--color-code-lines-text);
+    }
+</style>
+
+<details class="error-frame">
+    <summary class="error-frame__summary">
+        <span class="error-frame__file"></span>
+        <span class="error-frame__function"></span>
+    </summary>
+    <div class="error-frame__body">
+        <div class="code-lines"></div>
+    </div>
+</details>

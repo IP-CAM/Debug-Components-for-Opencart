@@ -1,0 +1,51 @@
+<style>
+    :host {
+        display: block;
+
+        /* Colors using light-dark() */
+        --color-host-bg: transparent;
+        --color-host-text: light-dark(oklch(20% 0.01 260), oklch(95% 0.01 260));
+
+        /* Spacing */
+        --space-container-gap: 0.625rem;
+        --space-title-margin: 0 0 1rem 0;
+
+        /* Typography */
+        --font-size-title: 1.5rem;
+        --font-weight-title: 700;
+
+        background: var(--color-host-bg);
+        color: var(--color-host-text);
+    }
+
+    .stack-trace {
+        display: flex;
+        flex-direction: column;
+        gap: var(--space-container-gap);
+    }
+
+    .stack-trace__title {
+        margin: var(--space-title-margin);
+        font-size: var(--font-size-title);
+        font-weight: var(--font-weight-title);
+        color: var(--color-host-text);
+    }
+
+    .stack-trace__frames {
+        display: flex;
+        flex-direction: column;
+        gap: var(--space-container-gap);
+    }
+
+    /* Hide title if no title attribute */
+    :host(:not([title])) .stack-trace__title {
+        display: none;
+    }
+</style>
+
+<div class="stack-trace">
+    <h2 class="stack-trace__title"></h2>
+    <div class="stack-trace__frames">
+        <slot></slot>
+    </div>
+</div>

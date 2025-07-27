@@ -1,0 +1,35 @@
+# Dependencies
+node_modules
+
+# IDE
+.vscode
+.idea
+.fleet
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+.nova
+.zed
+
+# OS
+.DS_Store
+Thumbs.db
+*.key
+*.pem
+
+# Logs
+logs
+*.log
+
+# Backups
+*.backup
+*.bak
+
+# Testing
+coverage
+
+# Build artifacts
+build
+dist

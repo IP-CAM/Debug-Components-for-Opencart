@@ -1,0 +1,143 @@
+<style>
+    :host {
+        position: fixed;
+        bottom: 1.5rem;
+        inset-inline-start: 50%;
+        transform: translateX(-50%);
+        z-index: 1000;
+
+        /* Colors using light-dark() */
+        --color-switcher-bg: light-dark(oklch(1 0 89.876 / 0.1), oklch(0.2 0 0 / 0.3));
+        --color-switcher-border: light-dark(oklch(1 0 89.876 / 0.3), oklch(0.4 0 0 / 0.4));
+        --color-switcher-shadow-light: light-dark(oklch(0 0 0 / 0.1), oklch(0 0 0 / 0.3));
+        --color-switcher-shadow-dark: light-dark(oklch(0 0 0 / 0.05), oklch(0 0 0 / 0.2));
+        --color-switcher-highlight: light-dark(oklch(1 0 89.876 / 0.2), oklch(1 0 0 / 0.1));
+
+        /* Hover colors */
+        --color-switcher-shadow-light-hover: light-dark(oklch(0 0 0 / 0.15), oklch(0 0 0 / 0.4));
+        --color-switcher-shadow-dark-hover: light-dark(oklch(0 0 0 / 0.1), oklch(0 0 0 / 0.3));
+
+        /* Indicator colors - red for manual themes */
+        --color-header-bg: oklch(55% 0.18 29);
+        --color-indicator-primary: var(--color-header-bg);
+        --color-indicator-secondary: oklch(from var(--color-header-bg) calc(l - 0.1) c h);
+
+        /* Sizing */
+        --size-switcher-border-radius: 2rem;
+        --size-indicator-width: 2.5rem;
+        --size-indicator-height: 2.5rem;
+        --size-indicator-border-radius: 50%;
+
+        /* Spacing */
+        --space-switcher-padding: 0.5rem;
+        --space-switcher-gap: 0.5rem;
+        --space-indicator-top: 0.5rem;
+        --space-indicator-left: 0.5rem;
+
+        /* Transforms */
+        --transform-switcher-hover-y: -2px;
+
+        /* Transitions */
+        --transition-switcher: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        --transition-indicator: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+
+        /* Z-index */
+        --z-index-indicator: 1;
+
+        /* Border width */
+        --border-width-switcher: 1px;
+    }
+
+    /* Auto mode - orange indicator for auto theme */
+    :host-context(html:not([data-theme])) {
+        --color-indicator-primary: oklch(0.705 0.187 47.604);
+        --color-indicator-secondary: oklch(0.646 0.194 41.116);
+    }
+
+    .theme-switcher {
+        background: var(--color-switcher-bg);
+        backdrop-filter: blur(12px) saturate(500%);
+        border: var(--border-width-switcher) solid var(--color-switcher-border);
+        border-radius: var(--size-switcher-border-radius);
+        padding: var(--space-switcher-padding);
+        display: flex;
+        gap: var(--space-switcher-gap);
+        align-items: center;
+        margin: 0;
+        box-shadow:
+            0 8px 32px var(--color-switcher-shadow-light),
+            0 2px 8px var(--color-switcher-shadow-dark),
+            inset 0 1px 0 var(--color-switcher-highlight);
+        transition: var(--transition-switcher);
+    }
+
+    .theme-switcher:hover {
+        transform: translateY(var(--transform-switcher-hover-y));
+        box-shadow:
+            0 12px 40px var(--color-switcher-shadow-light-hover),
+            0 4px 12px var(--color-switcher-shadow-dark-hover),
+            inset 0 1px 0 var(--color-switcher-highlight);
+    }
+
+    .theme-switcher__legend {
+        position: absolute;
+        inline-size: 1px;
+        block-size: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        border: 0;
+    }
+
+    .theme-switcher__indicator {
+        position: absolute;
+        inline-size: var(--size-indicator-width);
+        block-size: var(--size-indicator-height);
+        border-radius: var(--size-indicator-border-radius);
+        inset-block-start: var(--space-indicator-top);
+        inset-inline-start: var(--space-indicator-left);
+        z-index: var(--z-index-indicator);
+        background: linear-gradient(
+            135deg,
+            var(--color-indicator-primary),
+            var(--color-indicator-secondary)
+        );
+        box-shadow:
+            0 2px 8px var(--color-switcher-shadow-light),
+            0 1px 2px var(--color-switcher-shadow-dark),
+            inset 0 1px 0 var(--color-switcher-highlight);
+        transition: var(--transition-indicator);
+    }
+</style>
+<fieldset class="theme-switcher">
+    <legend class="theme-switcher__legend">Theme</legend>
+
+    <luminary-icon-radio
+        name="color-scheme"
+        value="light"
+        variant="light"
+        aria-label="Light theme"
+    >
+    </luminary-icon-radio>
+
+    <luminary-icon-radio
+        name="color-scheme"
+        value="auto"
+        variant="system"
+        aria-label="System theme"
+        checked
+    >
+    </luminary-icon-radio>
+
+    <luminary-icon-radio
+        name="color-scheme"
+        value="dark"
+        variant="dark"
+        aria-label="Dark theme"
+    >
+    </luminary-icon-radio>
+
+    <div class="theme-switcher__indicator" aria-hidden="true"></div>
+</fieldset>

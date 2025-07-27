@@ -1,0 +1,38 @@
+<style>
+    /* Container utilities layer */
+    @layer utilities {
+        :host {
+            font-family: var(--luminary-font-family, 'Consolas', monospace);
+            font-synthesis: none;
+            text-rendering: optimizeLegibility;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        :host ::slotted(.container) {
+            padding-inline: max(1rem, calc(50vw - 47rem + 2rem));
+            margin-inline: auto;
+        }
+
+        .layout {
+            display: flex;
+            flex-direction: column;
+            gap: 1.25rem;
+        }
+    }
+</style>
+<div class="layout">
+    <header class="layout__header">
+        <slot name="header"></slot>
+    </header>
+
+    <main class="layout__main">
+        <slot name="main"></slot>
+    </main>
+
+    <footer class="layout__footer">
+        <slot name="footer"></slot>
+    </footer>
+</div>
+
+<luminary-theme-switcher></luminary-theme-switcher>

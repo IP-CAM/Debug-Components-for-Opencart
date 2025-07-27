@@ -1,0 +1,16 @@
+:root {
+    --font-family-martian: 'Martian Mono', monospace;
+    --font-family-jetbrains: 'JetBrains Mono', monospace;
+    --font-family-noto-sans: 'Noto Sans Mono', monospace;
+    --luminary-font-family: var(--font-family-martian);
+}
+
+html {
+    color-scheme: light dark;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    min-block-size: 100vh;
+}

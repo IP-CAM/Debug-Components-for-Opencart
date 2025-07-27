@@ -1,0 +1,152 @@
+<style>
+    :host {
+        display: block;
+
+        /* Colors using light-dark() */
+        --color-exceptions-bg: light-dark(oklch(94% 0.01 120), oklch(20% 0.015 120));
+        --color-exceptions-border: light-dark(oklch(86% 0.02 120), oklch(28% 0.02 120));
+        --color-exceptions-shadow: light-dark(oklch(88% 0.015 120), oklch(16% 0.01 120));
+        --color-exceptions-highlight: light-dark(oklch(100% 0 0 / 0.2), oklch(100% 0 0 / 0.05));
+
+        /* Text colors */
+        --color-title-text: light-dark(oklch(20% 0.01 260), oklch(95% 0.01 260));
+        --color-class-text: light-dark(oklch(20% 0.01 260), oklch(95% 0.01 260));
+        --color-message-text: light-dark(oklch(20% 0.01 260), oklch(95% 0.01 260));
+        --color-location-text: light-dark(oklch(20% 0.01 260 / 0.7), oklch(95% 0.01 260 / 0.7));
+
+        /* Item colors */
+        --color-item-bg: light-dark(oklch(96% 0.005 260), oklch(24% 0.01 260));
+        --color-item-border: light-dark(oklch(90% 0.01 260), oklch(35% 0.01 260));
+        --color-counter-bg: light-dark(oklch(70% 0.18 29), oklch(55% 0.18 29));
+        --color-counter-text: light-dark(oklch(100% 0.01 29), oklch(100% 0.01 29));
+
+        /* Current exception colors */
+        --color-current-bg: light-dark(oklch(70% 0.15 340 / 0.15), oklch(40% 0.15 340 / 0.18));
+        --color-current-border: light-dark(oklch(60% 0.18 340), oklch(70% 0.18 340));
+        --color-current-counter-bg: light-dark(oklch(60% 0.18 340), oklch(70% 0.18 340));
+        --color-current-counter-text: light-dark(oklch(98% 0.005 260), oklch(18% 0.01 260));
+        --color-current-class-text: light-dark(oklch(60% 0.18 340), oklch(70% 0.18 340));
+
+        /* Spacing */
+        --space-container-padding: 1rem;
+        --space-list-gap: 0.75rem;
+        --space-item-padding: 0.75rem;
+        --space-item-padding-left: 2rem;
+        --space-counter-size: 1.25rem;
+        --space-counter-left: 0.5rem;
+        --space-counter-top: 0.75rem;
+
+        /* Typography */
+        --font-size-title: 1.125rem;
+        --font-weight-title: 600;
+        --font-size-class: 0.875rem;
+        --font-weight-class: 700;
+        --font-size-message: 0.875rem;
+        --font-size-location: 0.75rem;
+        --font-size-counter: 0.75rem;
+        --font-weight-counter: 600;
+        --font-family-mono: 'JetBrains Mono', 'Consolas', 'Monaco', monospace;
+
+        /* Border radius */
+        --border-radius: 0.375rem;
+        --border-radius-item: 0.25rem;
+        --border-radius-counter: 50%;
+    }
+
+    .exceptions-chain {
+        background: var(--color-exceptions-bg);
+        padding: var(--space-container-padding);
+        border-radius: var(--border-radius);
+        border: 1px solid var(--color-exceptions-border);
+        margin-block-start: 1rem;
+        box-shadow:
+            inset 0 3px 6px var(--color-exceptions-shadow),
+            inset 0 1px 0 var(--color-exceptions-highlight),
+            0 2px 4px var(--color-exceptions-border);
+    }
+
+    .exceptions-chain__title {
+        margin: 0 0 1rem 0;
+        font-size: var(--font-size-title);
+        font-weight: var(--font-weight-title);
+        color: var(--color-title-text);
+    }
+
+    .exceptions-chain__list {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+        counter-reset: exception-counter;
+        display: flex;
+        flex-direction: column;
+        gap: var(--space-list-gap);
+    }
+
+    .exceptions-chain__item {
+        counter-increment: exception-counter;
+        position: relative;
+        padding: var(--space-item-padding);
+        padding-inline-start: var(--space-item-padding-left);
+        background: var(--color-item-bg);
+        border: 1px solid var(--color-item-border);
+        border-radius: var(--border-radius-item);
+    }
+
+    .exceptions-chain__item--current {
+        background: var(--color-current-bg);
+        border-color: var(--color-current-border);
+    }
+
+    .exceptions-chain__item::before {
+        content: counter(exception-counter);
+        position: absolute;
+        inset-inline-start: var(--space-counter-left);
+        inset-block-start: var(--space-counter-top);
+        inline-size: var(--space-counter-size);
+        block-size: var(--space-counter-size);
+        background: var(--color-counter-bg);
+        color: var(--color-counter-text);
+        border-radius: var(--border-radius-counter);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: var(--font-size-counter);
+        font-weight: var(--font-weight-counter);
+    }
+
+    .exceptions-chain__item--current::before {
+        background: var(--color-current-counter-bg);
+        color: var(--color-current-counter-text);
+    }
+
+    .exceptions-chain__class {
+        font-weight: var(--font-weight-class);
+        font-size: var(--font-size-class);
+        color: var(--color-class-text);
+        margin-block-end: 0.25rem;
+    }
+
+    .exceptions-chain__item--current .exceptions-chain__class {
+        color: var(--color-current-class-text);
+        font-weight: 800;
+    }
+
+    .exceptions-chain__message {
+        font-size: var(--font-size-message);
+        color: var(--color-message-text);
+        margin-block-end: 0.5rem;
+        text-wrap: pretty;
+    }
+
+    .exceptions-chain__location {
+        font-size: var(--font-size-location);
+        color: var(--color-location-text);
+    }
+</style>
+
+<div class="exceptions-chain">
+    <h3 class="exceptions-chain__title">Exception Chain</h3>
+    <ol class="exceptions-chain__list">
+        <!-- Items will be populated by JavaScript -->
+    </ol>
+</div>

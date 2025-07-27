@@ -1,0 +1,212 @@
+<style>
+    :host {
+        display: flex;
+        align-items: stretch;
+        min-height: 1.25rem;
+
+        /* Host colors using light-dark() */
+        --color-host-bg: transparent;
+        --color-host-text: light-dark(oklch(20% 0.01 260), oklch(95% 0.01 260));
+
+        /* Editor link colors */
+        --color-editor-link-bg: transparent;
+        --color-editor-link-icon-bg: light-dark(oklch(70% 0.15 340 / 0.25), oklch(40% 0.15 340 / 0.32));
+        --color-editor-link-icon-fill: light-dark(oklch(60% 0.18 340), oklch(70% 0.18 340));
+
+        /* Line number colors */
+        --color-line-number-bg: transparent;
+        --color-line-number-text: light-dark(oklch(20% 0.01 260 / 0.6), oklch(95% 0.01 260 / 0.6));
+        --color-line-number-border: light-dark(oklch(90% 0.01 260), oklch(35% 0.01 260));
+
+        /* Content colors */
+        --color-content-bg: transparent;
+        --color-content-text: light-dark(oklch(20% 0.01 260), oklch(95% 0.01 260));
+        --color-content-arrow: light-dark(oklch(60% 0.18 340), oklch(70% 0.18 340));
+
+        /* Error state colors */
+        --color-error-host-bg: light-dark(oklch(70% 0.15 340 / 0.15), oklch(40% 0.15 340 / 0.18));
+        --color-error-editor-link-bg: light-dark(oklch(70% 0.15 340 / 0.25), oklch(40% 0.15 340 / 0.32));
+        --color-error-line-number-bg: light-dark(oklch(70% 0.15 340 / 0.25), oklch(40% 0.15 340 / 0.32));
+        --color-error-line-number-text: light-dark(oklch(60% 0.18 340), oklch(70% 0.18 340));
+        --color-error-content-text: light-dark(oklch(20% 0.01 260), oklch(95% 0.01 260));
+        --color-error-content-arrow: light-dark(oklch(60% 0.18 340), oklch(70% 0.18 340));
+
+        /* Syntax highlighting using light-dark() - Atom One Light/Dark */
+        --color-keyword: light-dark(oklch(42% 0.095 320), oklch(75% 0.12 320));
+        --color-control: light-dark(oklch(42% 0.095 320), oklch(75% 0.12 320));
+        --color-string: light-dark(oklch(42% 0.12 142), oklch(72% 0.10 142));
+        --color-string-literal: light-dark(oklch(35% 0.12 220), oklch(70% 0.12 220));
+        --color-variable: light-dark(oklch(35% 0.25 65), oklch(75% 0.12 65));
+        --color-number: light-dark(oklch(35% 0.25 65), oklch(75% 0.12 65));
+        --color-comment: light-dark(oklch(72% 0.015 260), oklch(55% 0.08 260));
+        --color-builtin: light-dark(oklch(45% 0.18 65), oklch(82% 0.10 65));
+        --color-literal: light-dark(oklch(25% 0.12 220), oklch(68% 0.08 200));
+        --color-deletion: light-dark(oklch(52% 0.15 25), oklch(72% 0.12 25));
+        --color-tag: light-dark(oklch(42% 0.095 320), oklch(75% 0.12 320));
+
+        /* Spacing */
+        --size-editor-link-width: 1.5rem;
+        --size-line-number-width: 3rem;
+        --size-content-padding-left: 1rem;
+        --size-content-padding-right: 0.5rem;
+        --size-line-number-padding-left: 0.5rem;
+        --size-line-number-padding-right: 0.75rem;
+        --size-content-arrow-left: 0.25rem;
+
+        /* Typography */
+        --font-family-code: 'JetBrains Mono', 'Consolas', 'Monaco', monospace;
+        --font-size-code: 0.9em;
+        --line-height-code: 1.5;
+        --font-weight-code: 400;
+
+        background: var(--color-host-bg);
+        color: var(--color-host-text);
+        font-size: var(--font-size-code);
+        line-height: var(--line-height-code);
+        font-weight: var(--font-weight-code);
+    }
+
+    :host(.code-line--error) {
+        background: var(--color-error-host-bg);
+    }
+
+    :host(:hover) .editor-link svg {
+        visibility: visible;
+    }
+
+    .editor-link {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        inline-size: var(--size-editor-link-width);
+        flex-shrink: 0;
+        text-decoration: none;
+        background: var(--color-editor-link-bg);
+    }
+
+    :host(.code-line--error) .editor-link {
+        background: var(--color-error-editor-link-bg);
+    }
+
+    .editor-link svg {
+        visibility: hidden;
+        border-radius: 100%;
+        inline-size: 1em;
+        block-size: 1em;
+        background: var(--color-editor-link-icon-bg);
+        fill: var(--color-editor-link-icon-fill);
+    }
+
+    .code-line__number {
+        display: inline-flex;
+        align-items: center;
+        justify-content: flex-end;
+        inline-size: var(--size-line-number-width);
+        text-align: end;
+        padding-inline-end: var(--size-line-number-padding-right);
+        padding-inline-start: var(--size-line-number-padding-left);
+        flex-shrink: 0;
+        user-select: none;
+        border-inline-end: 1px solid var(--color-line-number-border);
+        background: var(--color-line-number-bg);
+        color: var(--color-line-number-text);
+        opacity: 0.6;
+    }
+
+    .code-line__content {
+        padding-inline-start: var(--size-content-padding-left);
+        padding-inline-end: var(--size-content-padding-right);
+        flex: 1;
+        white-space: pre;
+        position: relative;
+        background: var(--color-content-bg);
+        color: var(--color-content-text);
+    }
+
+    :host(.code-line--error) .code-line__number {
+        background: var(--color-error-line-number-bg);
+        color: var(--color-error-line-number-text);
+        font-weight: 900;
+        opacity: 1;
+    }
+
+    :host(.code-line--error) .code-line__content::before {
+        content: "→";
+        position: absolute;
+        inset-inline-start: var(--size-content-arrow-left);
+        color: var(--color-error-content-arrow);
+        font-weight: 900;
+    }
+
+    :host(.code-line--error) .code-line__content {
+        font-weight: 900;
+        color: var(--color-error-content-text);
+    }
+
+    .code-line__token--keyword,
+    .code-line__token--control,
+    .code-line__token--builtin,
+    .code-line__token--string-literal,
+    .code-line__token--literal,
+    .code-line__token--number,
+    .code-line__token--variable {
+        font-weight: 600;
+    }
+
+    .code-line__token--comment {
+        font-style: italic;
+    }
+
+    .code-line__token--keyword {
+        color: var(--color-keyword);
+    }
+
+    .code-line__token--control {
+        color: var(--color-control);
+    }
+
+    .code-line__token--string {
+        color: var(--color-string);
+    }
+
+    .code-line__token--string-literal {
+        color: var(--color-string-literal);
+    }
+
+    .code-line__token--variable {
+        color: var(--color-variable);
+    }
+
+    .code-line__token--number {
+        color: var(--color-number);
+    }
+
+    .code-line__token--comment {
+        color: var(--color-comment);
+    }
+
+    .code-line__token--builtin {
+        color: var(--color-builtin);
+    }
+
+    .code-line__token--literal {
+        color: var(--color-literal);
+    }
+
+    .code-line__token--deletion {
+        color: var(--color-deletion);
+    }
+
+    .code-line__token--tag {
+        color: var(--color-tag);
+    }
+</style>
+
+<a href="#" class="editor-link" title="Open in editor">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16">
+        <path d="M21 6.75736L19 8.75736V4H10V9H5V20H19V17.2426L21 15.2426V21.0082C21 21.556 20.5551 22 20.0066 22H3.9934C3.44476 22 3 21.5501 3 20.9932V8L9.00319 2H19.9978C20.5513 2 21 2.45531 21 2.9918V6.75736ZM21.7782 8.80761L23.1924 10.2218L15.4142 18L13.9979 17.9979L14 16.5858L21.7782 8.80761Z"></path>
+    </svg>
+</a>
+<span class="code-line__number"></span>
+<div class="code-line__content"></div>

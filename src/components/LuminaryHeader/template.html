@@ -1,0 +1,91 @@
+<style>
+    :host {
+        display: block;
+        word-break: break-all;
+
+        /* Host colors using light-dark() */
+        --color-host-bg: transparent;
+        --color-host-text: light-dark(oklch(20% 0.01 260), oklch(95% 0.01 260));
+
+        /* Header colors */
+        --color-header-bg: light-dark(oklch(70% 0.18 29), oklch(55% 0.18 29));
+        --color-header-text: light-dark(oklch(20% 0.01 260), oklch(100% 0.01 29));
+
+        /* Spacing */
+        --space-header-padding: 1.25rem;
+        --space-content-gap: 1rem;
+        --space-main-gap: 1.25rem;
+
+        /* Border radius */
+        --border-radius-header: 0.375rem;
+
+        /* Typography */
+        --font-size-title: 1.5rem;
+        --font-weight-title: 800;
+        --font-size-message: 1rem;
+
+        /* Breakpoints */
+        --breakpoint-desktop: 768px;
+
+        background: var(--color-host-bg);
+        color: var(--color-host-text);
+    }
+
+    .error-header__body {
+        background-color: var(--color-header-bg);
+        color: var(--color-header-text);
+        padding: var(--space-header-padding);
+        border-radius: var(--border-radius-header);
+    }
+
+    .error-header__content {
+        display: flex;
+        flex-direction: column;
+        gap: var(--space-content-gap);
+        align-items: stretch;
+    }
+
+    .error-header__main {
+        display: flex;
+        flex-direction: column;
+        gap: var(--space-main-gap);
+        flex: 1;
+        min-inline-size: 0;
+    }
+
+    .error-header__title {
+        margin: 0;
+        font-size: var(--font-size-title);
+        font-weight: var(--font-weight-title);
+        text-wrap: balance;
+    }
+
+    .error-header__message {
+        margin: 0;
+        font-size: var(--font-size-message);
+        color: inherit;
+        text-wrap: pretty;
+    }
+
+    /* Desktop layout */
+    @media (width >= 768px) {
+        .error-header__content {
+            flex-direction: row;
+            gap: 1.5rem;
+        }
+    }
+</style>
+
+<div class="error-header__body">
+    <div class="error-header__content">
+        <div class="error-header__main">
+            <h1 class="error-header__title"></h1>
+            <p class="error-header__message"></p>
+
+            <slot name="suggestions"></slot>
+            <slot name="exceptions-chain"></slot>
+        </div>
+
+        <slot name="tech-info"></slot>
+    </div>
+</div>

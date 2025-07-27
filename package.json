@@ -1,0 +1,49 @@
+{
+  "name": "@cartwryte/luminary",
+  "version": "0.1.0",
+  "description": "🔦 Beautiful debug components for OpenCart developers - illuminate your code with elegant debug output",
+  "main": "dist/main.js",
+  "module": "dist/main.js",
+  "type": "module",
+  "files": [
+    "dist"
+  ],
+  "exports": {
+    ".": "./dist/main.js",
+    "./layout": "./dist/luminary-layout.js",
+    "./theme-switcher": "./dist/luminary-theme-switcher.js",
+    "./header": "./dist/luminary-header.js",
+    "./tech-info": "./dist/luminary-tech-info.js",
+    "./exceptions-chain": "./dist/luminary-exceptions-chain.js",
+    "./suggestions": "./dist/luminary-suggestions.js",
+    "./stack-trace": "./dist/luminary-stack-trace.js",
+    "./stack-frame": "./dist/luminary-stack-frame.js",
+    "./code-line": "./dist/luminary-code-line.js",
+    "./icon-radio": "./dist/luminary-icon-radio.js"
+  },
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "build:watch": "vite build --watch"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.personal:cartwryte/luminary.git"
+  },
+  "keywords": [
+    "debug",
+    "web-components",
+    "debug",
+    "opencart",
+    "developer-tools",
+    "css",
+    "shadow-dom",
+    "theming"
+  ],
+  "author": "Anton Semenov <20430159+trydalcoholic@users.noreply.github.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "vite": "^7.0.6"
+  }
+}
