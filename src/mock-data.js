@@ -45,6 +45,11 @@ window[LUMINARY_NAMESPACE].initialState = {
         ]
     },
 
+    'LuminaryHeader:header-main': {
+        title: 'InvalidArgumentException',
+        message: 'User email cannot be null or empty'
+    },
+
     'LuminaryStackFrame:frame-1': {
         file: '/var/www/app/src/Validators/UserValidator.php',
         line: 28,
@@ -260,6 +265,16 @@ window.updateSuggestions = function(componentId, newData) {
 window.updateExceptionsChain = function(componentId, newData) {
     if (window[LUMINARY_NAMESPACE].LuminaryStore) {
         const stateKey = `LuminaryExceptionsChain:${componentId}`
+        window[LUMINARY_NAMESPACE].LuminaryStore.state[stateKey] = newData
+        console.log(`Updated ${stateKey}:`, newData)
+    } else {
+        console.error('LuminaryStore not initialized yet')
+    }
+}
+
+window.updateHeader = function(componentId, newData) {
+    if (window[LUMINARY_NAMESPACE].LuminaryStore) {
+        const stateKey = `LuminaryHeader:${componentId}`
         window[LUMINARY_NAMESPACE].LuminaryStore.state[stateKey] = newData
         console.log(`Updated ${stateKey}:`, newData)
     } else {

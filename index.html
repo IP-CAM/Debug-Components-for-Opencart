@@ -9,9 +9,8 @@
     <body>
         <luminary-layout title="InvalidArgumentException | Debug">
             <luminary-header
+                id="header-main"
                 slot="header"
-                title="InvalidArgumentException"
-                message="User email cannot be null or empty"
                 class="container"
             >
                 <luminary-suggestions
@@ -78,6 +77,11 @@
                 console.log('\nExample usage:');
                 console.log('toggleStackFrame("frame-2")');
                 console.log('updateStackFrame("frame-1", {file: "/new/file.php", line: 99, function: "test", open: true, codeLines: []})');
+
+                console.log('\n=== Testing LuminaryHeader ===');
+                console.log('luminary-header registered:', !!customElements.get('luminary-header'));
+                console.log('\nExample usage:');
+                console.log('updateHeader("header-main", {title: "New Error", message: "Something went wrong"})');
             }, 1000);
         </script>
     </body>
