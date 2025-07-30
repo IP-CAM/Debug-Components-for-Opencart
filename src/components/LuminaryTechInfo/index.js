@@ -18,7 +18,6 @@ class LuminaryTechInfo extends HTMLElement {
 
     constructor() {
         super()
-
         this.attachShadow({ mode: 'open' })
 
         const content = template.content.cloneNode(true)
