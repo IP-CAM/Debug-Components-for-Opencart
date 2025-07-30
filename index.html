@@ -27,7 +27,7 @@
                 ></luminary-tech-info>
             </luminary-header>
             <luminary-stack-trace
-                title="Stack Trace"
+                id="stack-trace-main"
                 slot="main"
                 class="container"
             >
@@ -70,18 +70,26 @@
                 console.log('\nExample usage:');
                 console.log('updateExceptionsChain("exceptions-main", {title: "Custom Chain", exceptions: [{class: "TestException", message: "Test error", file: "/test.php", line: 10}]})');
 
-                console.log('\n=== Testing LuminaryStackFrame ===');
-                console.log('luminary-stack-frame registered:', !!customElements.get('luminary-stack-frame'));
-                console.log('luminary-code-line registered:', !!customElements.get('luminary-code-line'));
-
-                console.log('\nExample usage:');
-                console.log('toggleStackFrame("frame-2")');
-                console.log('updateStackFrame("frame-1", {file: "/new/file.php", line: 99, function: "test", open: true, codeLines: []})');
-
                 console.log('\n=== Testing LuminaryHeader ===');
                 console.log('luminary-header registered:', !!customElements.get('luminary-header'));
                 console.log('\nExample usage:');
                 console.log('updateHeader("header-main", {title: "New Error", message: "Something went wrong"})');
+
+                console.log('\n=== Testing LuminaryStackTrace ===');
+                console.log('luminary-stack-trace registered:', !!customElements.get('luminary-stack-trace'));
+                console.log('\nExample usage:');
+                console.log('updateStackTrace("stack-trace-main", {title: "Custom Stack Trace"})');
+
+                console.log('\n=== Testing LuminaryStackFrame ===');
+                console.log('luminary-stack-frame registered:', !!customElements.get('luminary-stack-frame'));
+                console.log('\nExample usage:');
+                console.log('toggleStackFrame("frame-2")');
+                console.log('updateStackFrame("frame-1", {file: "/new/file.php", line: 99, function: "test", open: true})');
+
+                console.log('\n=== Testing LuminaryCodeLine ===');
+                console.log('luminary-code-line registered:', !!customElements.get('luminary-code-line'));
+                console.log('\nExample usage:');
+                console.log('updateCodeLine("frame-1-line-0", {number: 100, isError: true, tokens: [{type: "keyword", content: "echo"}]})');
             }, 1000);
         </script>
     </body>

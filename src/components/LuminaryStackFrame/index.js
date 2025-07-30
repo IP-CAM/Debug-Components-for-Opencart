@@ -1,17 +1,21 @@
 import templateHTML from './template.html?raw'
+import { isEmptyObject } from '@/helpers.js'
 import { LUMINARY_NAMESPACE } from '@/constants.js'
 
 const template = document.createElement('template')
 template.innerHTML = templateHTML
 
+/**
+ * Custom element for displaying stack frame
+ * @example
+ * <luminary-stack-frame id="frame-1"></luminary-stack-frame>
+ */
 class LuminaryStackFrame extends HTMLElement {
     #details = null
-    #fileEl = null
-    #functionEl = null
-    #codeLinesEl = null
-    #codeLineElements = []
-    #unsubscribe = null
+    #fileElement = null
+    #functionElement = null
     #renderTimeout = null
+    #unsubscribe = null
 
     constructor() {
         super()
@@ -20,20 +24,17 @@ class LuminaryStackFrame extends HTMLElement {
         const content = template.content.cloneNode(true)
 
         this.#details = content.querySelector('.error-frame')
-        this.#fileEl = content.querySelector('.error-frame__file')
-        this.#functionEl = content.querySelector('.error-frame__function')
-        this.#codeLinesEl = content.querySelector('.code-lines')
+        this.#fileElement = content.querySelector('.error-frame__file')
+        this.#functionElement = content.querySelector('.error-frame__function')
 
         this.shadowRoot.append(content)
     }
 
     connectedCallback() {
-        this.#codeLineElements = Array.from(this.querySelectorAll('luminary-code-line'))
-
         if (window[LUMINARY_NAMESPACE]?.LuminaryStore) {
             this.#unsubscribe = window[LUMINARY_NAMESPACE].LuminaryStore.subscribe(
                 `${this.constructor.name}:${this.id}`,
-                (frameData) => this.render(frameData)
+                (value) => this.renderFrame(value)
             )
         } else {
             console.warn('LuminaryStore not found. Import luminary-store.js or main.js first.')
@@ -49,67 +50,63 @@ class LuminaryStackFrame extends HTMLElement {
         }
     }
 
-    render(frameData) {
+    renderFrame(data) {
         if (this.#renderTimeout) {
             clearTimeout(this.#renderTimeout)
         }
 
         this.#renderTimeout = setTimeout(() => {
-            this.#performRender(frameData)
+            this.#performRender(data)
             this.#renderTimeout = null
         }, 0)
     }
 
-    #performRender(frameData) {
-        if (!frameData || typeof frameData !== 'object') {
+    #performRender(data) {
+        if (!data || isEmptyObject(data)) {
+            this.setAttribute('empty', '')
             this.#clearContent()
             return
         }
 
-        this.#updateFrameHeader(frameData)
-        this.#updateOpenState(frameData.open)
-        this.#updateCodeLines(frameData.codeLines)
+        this.removeAttribute('empty')
+
+        this.#updateFrameHeader(data)
+        this.#updateOpenState(data.open)
     }
 
     #clearContent() {
-        this.#fileEl.textContent = ''
-        this.#functionEl.textContent = ''
-        this.#details.removeAttribute('open')
-        this.#codeLinesEl.replaceChildren()
-    }
-
-    #updateFrameHeader(frameData) {
-        const file = frameData.file || ''
-        const line = frameData.line || ''
-        this.#fileEl.textContent = file && line ? `${file}:${line}` : ''
-
-        const functionName = frameData.function
-        this.#functionEl.textContent = functionName ? `${functionName}()` : ''
-    }
-
-    #updateOpenState(isOpen) {
-        if (isOpen) {
-            this.#details.setAttribute('open', '')
-        } else {
+        if (this.#fileElement) {
+            this.#fileElement.textContent = ''
+        }
+        if (this.#functionElement) {
+            this.#functionElement.textContent = ''
+        }
+        if (this.#details) {
             this.#details.removeAttribute('open')
         }
     }
 
-    #updateCodeLines(codeLines) {
-        if (!Array.isArray(codeLines) || codeLines.length === 0) {
-            this.#codeLinesEl.replaceChildren()
-            return
+    #updateFrameHeader(data) {
+        if (this.#fileElement) {
+            const file = data.file || ''
+            const line = data.line || ''
+            this.#fileElement.textContent = file && line ? `${file}:${line}` : ''
         }
 
-        const elementsToShow = this.#codeLineElements.slice(0, codeLines.length)
-        this.#codeLinesEl.replaceChildren(...elementsToShow)
+        if (this.#functionElement) {
+            const functionName = data.function
+            this.#functionElement.textContent = functionName ? `${functionName}()` : ''
+        }
+    }
 
-        codeLines.forEach((lineData, index) => {
-            const lineElement = elementsToShow[index]
-            if (lineElement?.id) {
-                window[LUMINARY_NAMESPACE].LuminaryStore.state[`LuminaryCodeLine:${lineElement.id}`] = lineData
+    #updateOpenState(isOpen) {
+        if (this.#details) {
+            if (isOpen) {
+                this.#details.setAttribute('open', '')
+            } else {
+                this.#details.removeAttribute('open')
             }
-        })
+        }
     }
 }
 

@@ -1,103 +1,69 @@
 import templateHTML from './template.html?raw'
+import { isEmptyObject } from '@/helpers.js'
+import { LUMINARY_NAMESPACE } from '@/constants.js'
 
 const template = document.createElement('template')
 template.innerHTML = templateHTML
 
 class LuminaryStackTrace extends HTMLElement {
-    #titleEl = null
+    #titleElement = null
+    #renderTimeout = null
+    #unsubscribe = null
 
     constructor() {
         super()
         this.attachShadow({ mode: 'open' })
-        this.shadowRoot.append(template.content.cloneNode(true))
 
-        this.#titleEl = this.shadowRoot.querySelector('.stack-trace__title')
-    }
-
-    static get observedAttributes() {
-        return ['title', 'data-frames']
+        const content = template.content.cloneNode(true)
+        this.#titleElement = content.querySelector('.stack-trace__title')
+        this.shadowRoot.append(content)
     }
 
     connectedCallback() {
-        this.#updateTitle()
-        this.#renderFrames()
-    }
-
-    attributeChangedCallback(name, oldValue, newValue) {
-        switch (name) {
-            case 'title':
-                this.#updateTitle()
-                break
-            case 'data-frames':
-                this.#renderFrames()
-                break
+        if (window[LUMINARY_NAMESPACE]?.LuminaryStore) {
+            this.#unsubscribe = window[LUMINARY_NAMESPACE].LuminaryStore.subscribe(
+                `${this.constructor.name}:${this.id}`,
+                (value) => this.renderStackTrace(value)
+            )
+        } else {
+            console.warn('LuminaryStore not found. Import luminary-store.js or main.js first.')
         }
     }
 
-    #updateTitle() {
-        const title = this.getAttribute('title')
-        if (this.#titleEl) {
-            this.#titleEl.textContent = title || 'Stack Trace'
+    disconnectedCallback() {
+        this.#unsubscribe?.()
+
+        if (this.#renderTimeout) {
+            clearTimeout(this.#renderTimeout)
+            this.#renderTimeout = null
         }
     }
 
-    #renderFrames() {
-        const framesData = this.getAttribute('data-frames')
-        if (!framesData) return
-
-        try {
-            const frames = JSON.parse(framesData)
-
-            // Clear existing frames
-            this.innerHTML = ''
-
-            frames.forEach((frameData, index) => {
-                const frameEl = document.createElement('luminary-stack-frame')
-
-                frameEl.setAttribute('file', frameData.file || '')
-                frameEl.setAttribute('line', frameData.line || '')
-                frameEl.setAttribute('function', frameData.function || '')
-
-                if (frameData.codeLines) {
-                    frameEl.setAttribute('data-code-lines', JSON.stringify(frameData.codeLines))
-                }
-
-                // First frame should be open by default
-                if (index === 0) {
-                    frameEl.setAttribute('open', '')
-                }
-
-                this.appendChild(frameEl)
-            })
-        } catch (e) {
-            console.error('Failed to parse frames data:', e)
-        }
-    }
-
-    setFrames(frames) {
-        this.setAttribute('data-frames', JSON.stringify(frames))
-    }
-
-    addFrame(frameData) {
-        const frameEl = document.createElement('luminary-stack-frame')
-
-        frameEl.setAttribute('file', frameData.file || '')
-        frameEl.setAttribute('line', frameData.line || '')
-        frameEl.setAttribute('function', frameData.function || '')
-
-        if (frameData.codeLines) {
-            frameEl.setAttribute('data-code-lines', JSON.stringify(frameData.codeLines))
+    renderStackTrace(data) {
+        if (this.#renderTimeout) {
+            clearTimeout(this.#renderTimeout)
         }
 
-        this.appendChild(frameEl)
+        this.#renderTimeout = setTimeout(() => {
+            this.#performRender(data)
+            this.#renderTimeout = null
+        }, 0)
     }
 
-    clearFrames() {
-        this.innerHTML = ''
-    }
+    #performRender(data) {
+        if (!data || isEmptyObject(data)) {
+            this.setAttribute('empty', '')
+            if (this.#titleElement) {
+                this.#titleElement.textContent = 'Stack Trace'
+            }
+            return
+        }
 
-    getFramesCount() {
-        return this.querySelectorAll('luminary-stack-frame').length
+        this.removeAttribute('empty')
+
+        if (this.#titleElement) {
+            this.#titleElement.textContent = data.title || 'Stack Trace'
+        }
     }
 }
 

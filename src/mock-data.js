@@ -54,190 +54,204 @@ window[LUMINARY_NAMESPACE].initialState = {
         file: '/var/www/app/src/Validators/UserValidator.php',
         line: 28,
         function: 'validateEmail',
-        open: true,
-        codeLines: [
-            {
-                number: 25,
-                isError: false,
-                editorUrl: 'phpstorm://open?file=/var/www/app/src/Validators/UserValidator.php&line=25',
-                tokens: [
-                    { type: 'whitespace', content: '    ' },
-                    { type: 'keyword', content: 'public' },
-                    { type: 'whitespace', content: ' ' },
-                    { type: 'keyword', content: 'function' },
-                    { type: 'whitespace', content: ' ' },
-                    { type: 'string-literal', content: 'validateEmail' },
-                    { type: 'punctuation', content: '(' },
-                    { type: 'punctuation', content: '?' },
-                    { type: 'string-literal', content: 'string' },
-                    { type: 'whitespace', content: ' ' },
-                    { type: 'variable', content: '$email' },
-                    { type: 'punctuation', content: ')' },
-                    { type: 'punctuation', content: ':' },
-                    { type: 'whitespace', content: ' ' },
-                    { type: 'string-literal', content: 'bool' }
-                ]
-            },
-            {
-                number: 26,
-                isError: false,
-                editorUrl: 'phpstorm://open?file=/var/www/app/src/Validators/UserValidator.php&line=26',
-                tokens: [
-                    { type: 'whitespace', content: '    ' },
-                    { type: 'punctuation', content: '{' }
-                ]
-            },
-            {
-                number: 27,
-                isError: false,
-                editorUrl: 'phpstorm://open?file=/var/www/app/src/Validators/UserValidator.php&line=27',
-                tokens: [
-                    { type: 'whitespace', content: '        ' },
-                    { type: 'control', content: 'if' },
-                    { type: 'whitespace', content: ' ' },
-                    { type: 'punctuation', content: '(' },
-                    { type: 'builtin', content: 'empty' },
-                    { type: 'punctuation', content: '(' },
-                    { type: 'variable', content: '$email' },
-                    { type: 'punctuation', content: ')' },
-                    { type: 'punctuation', content: ')' },
-                    { type: 'whitespace', content: ' ' },
-                    { type: 'punctuation', content: '{' }
-                ]
-            },
-            {
-                number: 28,
-                isError: true,
-                editorUrl: 'phpstorm://open?file=/var/www/app/src/Validators/UserValidator.php&line=28',
-                tokens: [
-                    { type: 'whitespace', content: '            ' },
-                    { type: 'control', content: 'throw' },
-                    { type: 'whitespace', content: ' ' },
-                    { type: 'keyword', content: 'new' },
-                    { type: 'whitespace', content: ' ' },
-                    { type: 'string-literal', content: 'InvalidArgumentException' },
-                    { type: 'punctuation', content: '(' },
-                    { type: 'string', content: '"User email cannot be null or empty"' },
-                    { type: 'punctuation', content: ')' },
-                    { type: 'punctuation', content: ';' }
-                ]
-            },
-            {
-                number: 29,
-                isError: false,
-                editorUrl: 'phpstorm://open?file=/var/www/app/src/Validators/UserValidator.php&line=29',
-                tokens: [
-                    { type: 'whitespace', content: '        ' },
-                    { type: 'punctuation', content: '}' }
-                ]
-            },
-            {
-                number: 30,
-                isError: false,
-                editorUrl: 'phpstorm://open?file=/var/www/app/src/Validators/UserValidator.php&line=30',
-                tokens: []
-            },
-            {
-                number: 31,
-                isError: false,
-                editorUrl: 'phpstorm://open?file=/var/www/app/src/Validators/UserValidator.php&line=31',
-                tokens: [
-                    { type: 'whitespace', content: '        ' },
-                    { type: 'control', content: 'return' },
-                    { type: 'whitespace', content: ' ' },
-                    { type: 'builtin', content: 'filter_var' },
-                    { type: 'punctuation', content: '(' },
-                    { type: 'variable', content: '$email' },
-                    { type: 'punctuation', content: ',' },
-                    { type: 'whitespace', content: ' ' },
-                    { type: 'literal', content: 'FILTER_VALIDATE_EMAIL' },
-                    { type: 'punctuation', content: ')' },
-                    { type: 'whitespace', content: ' ' },
-                    { type: 'punctuation', content: '!' },
-                    { type: 'punctuation', content: '=' },
-                    { type: 'punctuation', content: '=' },
-                    { type: 'whitespace', content: ' ' },
-                    { type: 'literal', content: 'false' },
-                    { type: 'punctuation', content: ';' }
-                ]
-            }
-        ]
+        open: true
     },
 
     'LuminaryStackFrame:frame-2': {
         file: '/var/www/app/src/Services/UserService.php',
         line: 42,
         function: 'createUser',
-        open: false,
-        codeLines: [
-            {
-                number: 40,
-                isError: false,
-                editorUrl: 'phpstorm://open?file=/var/www/app/src/Services/UserService.php&line=40',
-                tokens: [
-                    { type: 'whitespace', content: '        ' },
-                    { type: 'comment', content: '// Validate user data before saving' }
-                ]
-            },
-            {
-                number: 41,
-                isError: false,
-                editorUrl: 'phpstorm://open?file=/var/www/app/src/Services/UserService.php&line=41',
-                tokens: [
-                    { type: 'whitespace', content: '        ' },
-                    { type: 'variable', content: '$validator' },
-                    { type: 'whitespace', content: ' ' },
-                    { type: 'punctuation', content: '=' },
-                    { type: 'whitespace', content: ' ' },
-                    { type: 'keyword', content: 'new' },
-                    { type: 'whitespace', content: ' ' },
-                    { type: 'string-literal', content: 'UserValidator' },
-                    { type: 'punctuation', content: '(' },
-                    { type: 'punctuation', content: ')' },
-                    { type: 'punctuation', content: ';' }
-                ]
-            },
-            {
-                number: 42,
-                isError: true,
-                editorUrl: 'phpstorm://open?file=/var/www/app/src/Services/UserService.php&line=42',
-                tokens: [
-                    { type: 'whitespace', content: '        ' },
-                    { type: 'variable', content: '$validator' },
-                    { type: 'punctuation', content: '-' },
-                    { type: 'punctuation', content: '>' },
-                    { type: 'string-literal', content: 'validateEmail' },
-                    { type: 'punctuation', content: '(' },
-                    { type: 'variable', content: '$userData' },
-                    { type: 'punctuation', content: '[' },
-                    { type: 'string', content: '"email"' },
-                    { type: 'punctuation', content: ']' },
-                    { type: 'whitespace', content: ' ' },
-                    { type: 'punctuation', content: '?' },
-                    { type: 'punctuation', content: '?' },
-                    { type: 'whitespace', content: ' ' },
-                    { type: 'literal', content: 'null' },
-                    { type: 'punctuation', content: ')' },
-                    { type: 'punctuation', content: ';' }
-                ]
-            },
-            {
-                number: 43,
-                isError: false,
-                editorUrl: 'phpstorm://open?file=/var/www/app/src/Services/UserService.php&line=43',
-                tokens: []
-            },
-            {
-                number: 44,
-                isError: false,
-                editorUrl: 'phpstorm://open?file=/var/www/app/src/Services/UserService.php&line=44',
-                tokens: [
-                    { type: 'whitespace', content: '        ' },
-                    { type: 'comment', content: '// Create new user instance' }
-                ]
-            }
+        open: false
+    },
+
+    'LuminaryStackTrace:stack-trace-main': {
+        title: 'Stack Trace'
+    },
+
+// Строки кода для frame-1
+    'LuminaryCodeLine:frame-1-line-0': {
+        number: 25,
+        isError: false,
+        editorUrl: 'phpstorm://open?file=/var/www/app/src/Validators/UserValidator.php&line=25',
+        tokens: [
+            { type: 'whitespace', content: '    ' },
+            { type: 'keyword', content: 'public' },
+            { type: 'whitespace', content: ' ' },
+            { type: 'keyword', content: 'function' },
+            { type: 'whitespace', content: ' ' },
+            { type: 'string-literal', content: 'validateEmail' },
+            { type: 'punctuation', content: '(' },
+            { type: 'punctuation', content: '?' },
+            { type: 'string-literal', content: 'string' },
+            { type: 'whitespace', content: ' ' },
+            { type: 'variable', content: '$email' },
+            { type: 'punctuation', content: ')' },
+            { type: 'punctuation', content: ':' },
+            { type: 'whitespace', content: ' ' },
+            { type: 'string-literal', content: 'bool' }
         ]
-    }
+    },
+
+    'LuminaryCodeLine:frame-1-line-1': {
+        number: 26,
+        isError: false,
+        editorUrl: 'phpstorm://open?file=/var/www/app/src/Validators/UserValidator.php&line=26',
+        tokens: [
+            { type: 'whitespace', content: '    ' },
+            { type: 'punctuation', content: '{' }
+        ]
+    },
+
+    'LuminaryCodeLine:frame-1-line-2': {
+        number: 27,
+        isError: false,
+        editorUrl: 'phpstorm://open?file=/var/www/app/src/Validators/UserValidator.php&line=27',
+        tokens: [
+            { type: 'whitespace', content: '        ' },
+            { type: 'control', content: 'if' },
+            { type: 'whitespace', content: ' ' },
+            { type: 'punctuation', content: '(' },
+            { type: 'builtin', content: 'empty' },
+            { type: 'punctuation', content: '(' },
+            { type: 'variable', content: '$email' },
+            { type: 'punctuation', content: ')' },
+            { type: 'punctuation', content: ')' },
+            { type: 'whitespace', content: ' ' },
+            { type: 'punctuation', content: '{' }
+        ]
+    },
+
+    'LuminaryCodeLine:frame-1-line-3': {
+        number: 28,
+        isError: true,
+        editorUrl: 'phpstorm://open?file=/var/www/app/src/Validators/UserValidator.php&line=28',
+        tokens: [
+            { type: 'whitespace', content: '            ' },
+            { type: 'control', content: 'throw' },
+            { type: 'whitespace', content: ' ' },
+            { type: 'keyword', content: 'new' },
+            { type: 'whitespace', content: ' ' },
+            { type: 'string-literal', content: 'InvalidArgumentException' },
+            { type: 'punctuation', content: '(' },
+            { type: 'string', content: '"User email cannot be null or empty"' },
+            { type: 'punctuation', content: ')' },
+            { type: 'punctuation', content: ';' }
+        ]
+    },
+
+    'LuminaryCodeLine:frame-1-line-4': {
+        number: 29,
+        isError: false,
+        editorUrl: 'phpstorm://open?file=/var/www/app/src/Validators/UserValidator.php&line=29',
+        tokens: [
+            { type: 'whitespace', content: '        ' },
+            { type: 'punctuation', content: '}' }
+        ]
+    },
+
+    'LuminaryCodeLine:frame-1-line-5': {
+        number: 30,
+        isError: false,
+        editorUrl: 'phpstorm://open?file=/var/www/app/src/Validators/UserValidator.php&line=30',
+        tokens: []
+    },
+
+    'LuminaryCodeLine:frame-1-line-6': {
+        number: 31,
+        isError: false,
+        editorUrl: 'phpstorm://open?file=/var/www/app/src/Validators/UserValidator.php&line=31',
+        tokens: [
+            { type: 'whitespace', content: '        ' },
+            { type: 'control', content: 'return' },
+            { type: 'whitespace', content: ' ' },
+            { type: 'builtin', content: 'filter_var' },
+            { type: 'punctuation', content: '(' },
+            { type: 'variable', content: '$email' },
+            { type: 'punctuation', content: ',' },
+            { type: 'whitespace', content: ' ' },
+            { type: 'literal', content: 'FILTER_VALIDATE_EMAIL' },
+            { type: 'punctuation', content: ')' },
+            { type: 'whitespace', content: ' ' },
+            { type: 'punctuation', content: '!' },
+            { type: 'punctuation', content: '=' },
+            { type: 'punctuation', content: '=' },
+            { type: 'whitespace', content: ' ' },
+            { type: 'literal', content: 'false' },
+            { type: 'punctuation', content: ';' }
+        ]
+    },
+
+// Строки кода для frame-2
+    'LuminaryCodeLine:frame-2-line-0': {
+        number: 40,
+        isError: false,
+        editorUrl: 'phpstorm://open?file=/var/www/app/src/Services/UserService.php&line=40',
+        tokens: [
+            { type: 'whitespace', content: '        ' },
+            { type: 'comment', content: '// Validate user data before saving' }
+        ]
+    },
+
+    'LuminaryCodeLine:frame-2-line-1': {
+        number: 41,
+        isError: false,
+        editorUrl: 'phpstorm://open?file=/var/www/app/src/Services/UserService.php&line=41',
+        tokens: [
+            { type: 'whitespace', content: '        ' },
+            { type: 'variable', content: '$validator' },
+            { type: 'whitespace', content: ' ' },
+            { type: 'punctuation', content: '=' },
+            { type: 'whitespace', content: ' ' },
+            { type: 'keyword', content: 'new' },
+            { type: 'whitespace', content: ' ' },
+            { type: 'string-literal', content: 'UserValidator' },
+            { type: 'punctuation', content: '(' },
+            { type: 'punctuation', content: ')' },
+            { type: 'punctuation', content: ';' }
+        ]
+    },
+
+    'LuminaryCodeLine:frame-2-line-2': {
+        number: 42,
+        isError: true,
+        editorUrl: 'phpstorm://open?file=/var/www/app/src/Services/UserService.php&line=42',
+        tokens: [
+            { type: 'whitespace', content: '        ' },
+            { type: 'variable', content: '$validator' },
+            { type: 'punctuation', content: '-' },
+            { type: 'punctuation', content: '>' },
+            { type: 'string-literal', content: 'validateEmail' },
+            { type: 'punctuation', content: '(' },
+            { type: 'variable', content: '$userData' },
+            { type: 'punctuation', content: '[' },
+            { type: 'string', content: '"email"' },
+            { type: 'punctuation', content: ']' },
+            { type: 'whitespace', content: ' ' },
+            { type: 'punctuation', content: '?' },
+            { type: 'punctuation', content: '?' },
+            { type: 'whitespace', content: ' ' },
+            { type: 'literal', content: 'null' },
+            { type: 'punctuation', content: ')' },
+            { type: 'punctuation', content: ';' }
+        ]
+    },
+
+    'LuminaryCodeLine:frame-2-line-3': {
+        number: 43,
+        isError: false,
+        editorUrl: 'phpstorm://open?file=/var/www/app/src/Services/UserService.php&line=43',
+        tokens: []
+    },
+
+    'LuminaryCodeLine:frame-2-line-4': {
+        number: 44,
+        isError: false,
+        editorUrl: 'phpstorm://open?file=/var/www/app/src/Services/UserService.php&line=44',
+        tokens: [
+            { type: 'whitespace', content: '        ' },
+            { type: 'comment', content: '// Create new user instance' }
+        ]
+    },
 }
 
 window.updateTechInfo = function(componentId, newData) {
@@ -304,6 +318,26 @@ window.toggleStackFrame = function(frameId) {
             window[LUMINARY_NAMESPACE].LuminaryStore.state[stateKey] = newData
             console.log(`Toggled ${frameId} open state to:`, newData.open)
         }
+    } else {
+        console.error('LuminaryStore not initialized yet')
+    }
+}
+
+window.updateStackTrace = function(componentId, newData) {
+    if (window[LUMINARY_NAMESPACE].LuminaryStore) {
+        const stateKey = `LuminaryStackTrace:${componentId}`
+        window[LUMINARY_NAMESPACE].LuminaryStore.state[stateKey] = newData
+        console.log(`Updated ${stateKey}:`, newData)
+    } else {
+        console.error('LuminaryStore not initialized yet')
+    }
+}
+
+window.updateCodeLine = function(lineId, newData) {
+    if (window[LUMINARY_NAMESPACE].LuminaryStore) {
+        const stateKey = `LuminaryCodeLine:${lineId}`
+        window[LUMINARY_NAMESPACE].LuminaryStore.state[stateKey] = newData
+        console.log(`Updated ${stateKey}:`, newData)
     } else {
         console.error('LuminaryStore not initialized yet')
     }
