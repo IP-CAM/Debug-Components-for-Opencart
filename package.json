@@ -25,7 +25,8 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "build:watch": "vite build --watch"
+    "build:watch": "vite build --watch",
+    "release": "npm version minor && git push --follow-tags"
   },
   "repository": {
     "type": "git",
