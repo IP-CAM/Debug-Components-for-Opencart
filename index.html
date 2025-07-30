@@ -19,21 +19,8 @@
                     slot="suggestions"
                 ></luminary-suggestions>
                 <luminary-exceptions-chain
+                    id="exceptions-main"
                     slot="exceptions-chain"
-                    data-exceptions='[
-                        {
-                            "class": "InvalidArgumentException",
-                            "message": "User email cannot be null or empty",
-                            "file": "/var/www/app/src/Validators/UserValidator.php",
-                            "line": 28
-                        },
-                        {
-                            "class": "ValidationException",
-                            "message": "User data validation failed",
-                            "file": "/var/www/app/src/Services/UserService.php",
-                            "line": 42
-                        }
-                    ]'
                 ></luminary-exceptions-chain>
                 <luminary-tech-info
                     id="tech-info-main"
@@ -78,6 +65,11 @@
                 console.log('luminary-suggestions registered:', !!customElements.get('luminary-suggestions'));
                 console.log('\nExample usage:');
                 console.log('updateSuggestions("suggestions-main", {title: "New Tips", items: ["Tip 1", "Tip 2"]})');
+
+                console.log('\n=== Testing LuminaryExceptionsChain ===');
+                console.log('luminary-exceptions-chain registered:', !!customElements.get('luminary-exceptions-chain'));
+                console.log('\nExample usage:');
+                console.log('updateExceptionsChain("exceptions-main", {title: "Custom Chain", exceptions: [{class: "TestException", message: "Test error", file: "/test.php", line: 10}]})');
 
                 console.log('\n=== Testing LuminaryStackFrame ===');
                 console.log('luminary-stack-frame registered:', !!customElements.get('luminary-stack-frame'));

@@ -1,85 +1,106 @@
 import templateHTML from './template.html?raw'
+import { isEmptyObject } from '@/helpers.js'
+import { LUMINARY_NAMESPACE } from '@/constants.js'
 
 const template = document.createElement('template')
 template.innerHTML = templateHTML
 
+/**
+ * Custom element for displaying exception chain
+ * @example
+ * <luminary-exceptions-chain id="exceptions-main"></luminary-exceptions-chain>
+ */
 class LuminaryExceptionsChain extends HTMLElement {
-    #listEl = null
+    #titleElement = null
+    #listElement = null
+    #renderTimeout = null
+    #unsubscribe = null
 
     constructor() {
         super()
         this.attachShadow({ mode: 'open' })
-        this.shadowRoot.append(template.content.cloneNode(true))
 
-        this.#listEl = this.shadowRoot.querySelector('.exceptions-chain__list')
-    }
+        const content = template.content.cloneNode(true)
 
-    static get observedAttributes() {
-        return ['data-exceptions']
+        this.#titleElement = content.querySelector('.exceptions-chain__title')
+        this.#listElement = content.querySelector('.exceptions-chain__list')
+
+        this.shadowRoot.append(content)
     }
 
     connectedCallback() {
-        this.renderExceptions()
-    }
-
-    attributeChangedCallback(name, oldValue, newValue) {
-        if (name === 'data-exceptions') {
-            this.renderExceptions()
+        if (window[LUMINARY_NAMESPACE]?.LuminaryStore) {
+            this.#unsubscribe = window[LUMINARY_NAMESPACE].LuminaryStore.subscribe(
+                `${this.constructor.name}:${this.id}`,
+                (value) => this.renderExceptions(value)
+            )
+        } else {
+            console.warn('LuminaryStore not found. Import luminary-store.js or main.js first.')
         }
     }
 
-    renderExceptions() {
-        const exceptionsData = this.getAttribute('data-exceptions')
-        if (!exceptionsData || !this.#listEl) return
+    disconnectedCallback() {
+        this.#unsubscribe?.()
 
-        try {
-            const exceptions = JSON.parse(exceptionsData)
-            this.#listEl.innerHTML = ''
+        if (this.#renderTimeout) {
+            clearTimeout(this.#renderTimeout)
+            this.#renderTimeout = null
+        }
+    }
 
-            exceptions.forEach((exception, index) => {
-                const itemEl = this.createExceptionItem(exception, index === 0)
-                this.#listEl.appendChild(itemEl)
-            })
-        } catch (e) {
-            console.error('Failed to parse exceptions data:', e)
+    renderExceptions(data) {
+        if (this.#renderTimeout) {
+            clearTimeout(this.#renderTimeout)
+        }
+
+        this.#renderTimeout = setTimeout(() => {
+            this.#performRender(data)
+            this.#renderTimeout = null
+        }, 0)
+    }
+
+    #performRender(data) {
+        if (!data || isEmptyObject(data) || !Array.isArray(data.exceptions) || data.exceptions.length === 0) {
+            this.setAttribute('empty', '')
+            this.#listElement?.replaceChildren()
+            return
+        }
+
+        this.removeAttribute('empty')
+
+        // Update title if provided
+        if (this.#titleElement && data.title) {
+            this.#titleElement.textContent = data.title
+        }
+
+        // Update exceptions list
+        if (this.#listElement && Array.isArray(data.exceptions)) {
+            const items = data.exceptions.map((exception, index) =>
+                this.createExceptionItem(exception, index === 0)
+            )
+            this.#listElement.replaceChildren(...items)
         }
     }
 
     createExceptionItem(exception, isCurrent = false) {
-        const itemEl = document.createElement('li')
-        itemEl.className = `exceptions-chain__item${isCurrent ? ' exceptions-chain__item--current' : ''}`
+        const itemElement = document.createElement('li')
+        itemElement.className = `exceptions-chain__item${isCurrent ? ' exceptions-chain__item--current' : ''}`
 
-        const classEl = document.createElement('div')
-        classEl.className = 'exceptions-chain__class'
-        classEl.textContent = exception.class || 'Exception'
+        const classElement = document.createElement('div')
+        classElement.className = 'exceptions-chain__class'
+        classElement.textContent = exception.class || 'Exception'
 
-        const messageEl = document.createElement('div')
-        messageEl.className = 'exceptions-chain__message'
-        messageEl.textContent = exception.message || ''
+        const messageElement = document.createElement('div')
+        messageElement.className = 'exceptions-chain__message'
+        messageElement.textContent = exception.message || ''
 
-        const locationEl = document.createElement('div')
-        locationEl.className = 'exceptions-chain__location'
-        locationEl.textContent = `${exception.file || ''}:${exception.line || ''}`
+        const locationElement = document.createElement('div')
+        locationElement.className = 'exceptions-chain__location'
+        locationElement.textContent = `${exception.file || ''}:${exception.line || ''}`
 
-        itemEl.appendChild(classEl)
-        itemEl.appendChild(messageEl)
-        itemEl.appendChild(locationEl)
+        itemElement.append(classElement, messageElement, locationElement)
 
-        return itemEl
-    }
-
-    setExceptions(exceptions) {
-        this.setAttribute('data-exceptions', JSON.stringify(exceptions))
-    }
-
-    addException(exception) {
-        try {
-            const current = JSON.parse(this.getAttribute('data-exceptions') || '[]')
-            current.push(exception)
-            this.setExceptions(current)
-        } catch (e) {
-            console.error('Failed to add exception:', e)
-        }
+        return itemElement
     }
 }
 

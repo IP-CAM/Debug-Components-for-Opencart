@@ -27,6 +27,24 @@ window[LUMINARY_NAMESPACE].initialState = {
         ]
     },
 
+    'LuminaryExceptionsChain:exceptions-main': {
+        title: 'Exception Chain',
+        exceptions: [
+            {
+                class: 'InvalidArgumentException',
+                message: 'User email cannot be null or empty',
+                file: '/var/www/app/src/Validators/UserValidator.php',
+                line: 28
+            },
+            {
+                class: 'ValidationException',
+                message: 'User data validation failed',
+                file: '/var/www/app/src/Services/UserService.php',
+                line: 42
+            }
+        ]
+    },
+
     'LuminaryStackFrame:frame-1': {
         file: '/var/www/app/src/Validators/UserValidator.php',
         line: 28,
@@ -232,6 +250,16 @@ window.updateTechInfo = function(componentId, newData) {
 window.updateSuggestions = function(componentId, newData) {
     if (window[LUMINARY_NAMESPACE].LuminaryStore) {
         const stateKey = `LuminarySuggestions:${componentId}`
+        window[LUMINARY_NAMESPACE].LuminaryStore.state[stateKey] = newData
+        console.log(`Updated ${stateKey}:`, newData)
+    } else {
+        console.error('LuminaryStore not initialized yet')
+    }
+}
+
+window.updateExceptionsChain = function(componentId, newData) {
+    if (window[LUMINARY_NAMESPACE].LuminaryStore) {
+        const stateKey = `LuminaryExceptionsChain:${componentId}`
         window[LUMINARY_NAMESPACE].LuminaryStore.state[stateKey] = newData
         console.log(`Updated ${stateKey}:`, newData)
     } else {
