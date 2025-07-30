@@ -42,7 +42,13 @@ export default defineConfig({
         },
         rollupOptions: {
             output: {
-                assetFileNames: 'assets/[name].[ext]',
+                assetFileNames: (assetInfo) => {
+                    if (assetInfo.names?.some(name => name.endsWith('.css'))) {
+                        return 'luminary.css';
+                    }
+
+                    return 'assets/[name][extname]';
+                }
             }
         },
         assetsDir: 'assets',

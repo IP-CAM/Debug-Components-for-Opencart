@@ -52,7 +52,8 @@
     "./icon-radio": {
       "import": "./dist/luminary-icon-radio.es.js",
       "require": "./dist/luminary-icon-radio.cjs.js"
-    }
+    },
+    "./luminary.css": "./dist/luminary.css"
   },
   "scripts": {
     "dev": "vite",
