@@ -34,7 +34,7 @@ class LuminaryTechInfo extends HTMLElement {
     connectedCallback() {
         if (window[LUMINARY_NAMESPACE]?.LuminaryStore) {
             this.#unsubscribe = window[LUMINARY_NAMESPACE].LuminaryStore.subscribe(
-                `${this.constructor.name}:${this.id}`,
+                `LuminaryTechInfo:${this.id}`,
                 (value) => this.renderTechInfo(value)
             )
         } else {

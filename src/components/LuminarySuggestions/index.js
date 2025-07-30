@@ -35,7 +35,7 @@ class LuminarySuggestions extends HTMLElement {
     connectedCallback() {
         if (window[LUMINARY_NAMESPACE]?.LuminaryStore) {
             this.#unsubscribe = window[LUMINARY_NAMESPACE].LuminaryStore.subscribe(
-                `${this.constructor.name}:${this.id}`,
+                `LuminarySuggestions:${this.id}`,
                 (value) => this.renderSuggestions(value)
             )
         } else {

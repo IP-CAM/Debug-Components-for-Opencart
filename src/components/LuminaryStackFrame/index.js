@@ -37,7 +37,7 @@ class LuminaryStackFrame extends HTMLElement {
     connectedCallback() {
         if (window[LUMINARY_NAMESPACE]?.LuminaryStore) {
             this.#unsubscribe = window[LUMINARY_NAMESPACE].LuminaryStore.subscribe(
-                `${this.constructor.name}:${this.id}`,
+                `LuminaryStackFrame:${this.id}`,
                 (value) => this.renderFrame(value)
             )
         } else {

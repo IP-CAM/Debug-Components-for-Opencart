@@ -31,7 +31,7 @@ class LuminaryStackTrace extends HTMLElement {
     connectedCallback() {
         if (window[LUMINARY_NAMESPACE]?.LuminaryStore) {
             this.#unsubscribe = window[LUMINARY_NAMESPACE].LuminaryStore.subscribe(
-                `${this.constructor.name}:${this.id}`,
+                `LuminaryStackTrace:${this.id}`,
                 (value) => this.renderStackTrace(value)
             )
         } else {

@@ -13,6 +13,10 @@ export default defineConfig({
         }
     },
     build: {
+        minify: 'esbuild',
+        esbuildOptions: {
+            drop: ['console', 'debugger'],
+        },
         rollupOptions: {
             input: {
                 'main': resolve(__dirname, 'src/main.js'),
@@ -27,7 +31,6 @@ export default defineConfig({
                 'luminary-suggestions': resolve(__dirname, 'src/components/LuminarySuggestions'),
                 'luminary-tech-info': resolve(__dirname, 'src/components/LuminaryTechInfo'),
                 'luminary-theme-switcher': resolve(__dirname, 'src/components/LuminaryThemeSwitcher'),
-                luminary: resolve(__dirname, 'index.html'),
             },
             output: {
                 entryFileNames: '[name].js',

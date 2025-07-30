@@ -35,7 +35,7 @@ class LuminaryExceptionsChain extends HTMLElement {
     connectedCallback() {
         if (window[LUMINARY_NAMESPACE]?.LuminaryStore) {
             this.#unsubscribe = window[LUMINARY_NAMESPACE].LuminaryStore.subscribe(
-                `${this.constructor.name}:${this.id}`,
+                `LuminaryExceptionsChain:${this.id}`,
                 (value) => this.renderExceptions(value)
             )
         } else {

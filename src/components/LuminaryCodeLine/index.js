@@ -36,7 +36,7 @@ class LuminaryCodeLine extends HTMLElement {
     connectedCallback() {
         if (window[LUMINARY_NAMESPACE]?.LuminaryStore) {
             this.#unsubscribe = window[LUMINARY_NAMESPACE].LuminaryStore.subscribe(
-                `${this.constructor.name}:${this.id}`,
+                `LuminaryCodeLine:${this.id}`,
                 (lineData) => this.render(lineData)
             )
         } else {

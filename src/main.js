@@ -16,6 +16,9 @@ import { LuminarySuggestions } from './components/LuminarySuggestions'
 import { LuminaryTechInfo } from './components/LuminaryTechInfo'
 import { LuminaryThemeSwitcher } from './components/LuminaryThemeSwitcher'
 
+// Import constants
+import { LUMINARY_NAMESPACE, THEME_STORAGE_KEY } from '@/constants.js'
+
 // Export components
 export {
     LuminaryStore,
@@ -29,4 +32,6 @@ export {
     LuminarySuggestions,
     LuminaryTechInfo,
     LuminaryThemeSwitcher,
+    LUMINARY_NAMESPACE,
+    THEME_STORAGE_KEY,
 }

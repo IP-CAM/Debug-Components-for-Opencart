@@ -27,7 +27,7 @@ class LuminaryLayout extends HTMLElement {
     connectedCallback() {
         if (window[LUMINARY_NAMESPACE]?.LuminaryStore) {
             this.#unsubscribe = window[LUMINARY_NAMESPACE].LuminaryStore.subscribe(
-                `${this.constructor.name}:${this.id}`,
+                `LuminaryLayout:${this.id}`,
                 (layoutData) => this.render(layoutData)
             )
         } else {
