@@ -5,6 +5,15 @@ import { LUMINARY_NAMESPACE } from '@/constants.js'
 const template = document.createElement('template')
 template.innerHTML = templateHTML
 
+/**
+ * Displays a stack trace with collapsible frames for detailed error analysis.
+ * Provides a structured view of the call stack to help with debugging.
+ *
+ * @example
+ * ```html
+ * <luminary-stack-trace id="stack-trace-main"></luminary-stack-trace>
+ * ```
+ */
 class LuminaryStackTrace extends HTMLElement {
     #titleElement = null
     #renderTimeout = null

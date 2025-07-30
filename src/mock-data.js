@@ -68,7 +68,6 @@ window[LUMINARY_NAMESPACE].initialState = {
         title: 'Stack Trace'
     },
 
-// Строки кода для frame-1
     'LuminaryCodeLine:frame-1-line-0': {
         number: 25,
         isError: false,
@@ -181,7 +180,7 @@ window[LUMINARY_NAMESPACE].initialState = {
         ]
     },
 
-// Строки кода для frame-2
+// Code lines for frame-2
     'LuminaryCodeLine:frame-2-line-0': {
         number: 40,
         isError: false,

@@ -6,9 +6,13 @@ const template = document.createElement('template')
 template.innerHTML = templateHTML
 
 /**
- * Custom element for displaying suggestions
+ * Displays helpful suggestions or recommendations to resolve errors.
+ * Renders a list of actionable items to help users debug issues.
+ *
  * @example
+ * ```html
  * <luminary-suggestions id="suggestions-main"></luminary-suggestions>
+ * ```
  */
 class LuminarySuggestions extends HTMLElement {
     #titleElement = null

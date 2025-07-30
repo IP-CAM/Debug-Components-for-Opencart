@@ -7,9 +7,13 @@ const template = document.createElement('template')
 template.innerHTML = templateHTML
 
 /**
- * Custom element for displaying technical information
+ * Displays technical information and system details in a structured format.
+ * Renders key-value pairs of technical data in a clean, organized list.
+ *
  * @example
+ * ```html
  * <luminary-tech-info id="tech-info-main"></luminary-tech-info>
+ * ```
  */
 class LuminaryTechInfo extends HTMLElement {
     #listElement = null

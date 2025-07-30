@@ -6,9 +6,13 @@ const template = document.createElement('template')
 template.innerHTML = templateHTML
 
 /**
- * Custom element for displaying stack frame
+ * Displays a single stack frame with file, line number, and function details.
+ * Provides a collapsible interface to show/hide detailed code context.
+ *
  * @example
+ * ```html
  * <luminary-stack-frame id="frame-1"></luminary-stack-frame>
+ * ```
  */
 class LuminaryStackFrame extends HTMLElement {
     #details = null

@@ -4,6 +4,15 @@ import { LUMINARY_NAMESPACE } from '@/constants.js'
 const template = document.createElement('template')
 template.innerHTML = templateHTML
 
+/**
+ * Renders a single line of code with syntax highlighting and line numbers.
+ * Supports clickable line numbers that link to the corresponding file in the editor.
+ *
+ * @example
+ * ```html
+ * <luminary-code-line id="line-1"></luminary-code-line>
+ * ```
+ */
 class LuminaryCodeLine extends HTMLElement {
     #lineNumberEl = null
     #editorLinkEl = null

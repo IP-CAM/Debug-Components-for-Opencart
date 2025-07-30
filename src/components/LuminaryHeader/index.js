@@ -6,9 +6,13 @@ const template = document.createElement('template')
 template.innerHTML = templateHTML
 
 /**
- * Custom element for displaying error header
+ * Displays the main error header with title and message.
+ * Shows the error title and an optional detailed message in a clean, accessible format.
+ *
  * @example
+ * ```html
  * <luminary-header id="header-main"></luminary-header>
+ * ```
  */
 class LuminaryHeader extends HTMLElement {
     #titleElement = null

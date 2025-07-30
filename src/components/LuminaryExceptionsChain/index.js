@@ -6,9 +6,13 @@ const template = document.createElement('template')
 template.innerHTML = templateHTML
 
 /**
- * Custom element for displaying exception chain
+ * Displays a chain of exceptions with their class, message, and location.
+ * Shows the complete exception hierarchy in a clear, navigable format.
+ *
  * @example
+ * ```html
  * <luminary-exceptions-chain id="exceptions-main"></luminary-exceptions-chain>
+ * ```
  */
 class LuminaryExceptionsChain extends HTMLElement {
     #titleElement = null

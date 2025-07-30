@@ -3,6 +3,15 @@ import templateHTML from './template.html?raw';
 const template = document.createElement('template');
 template.innerHTML = templateHTML;
 
+/**
+ * A custom radio button component with icon support.
+ * Provides a styled radio input with customizable icons for different states.
+ *
+ * @example
+ * ```html
+ * <luminary-icon-radio name="theme" value="light" checked></luminary-icon-radio>
+ * ```
+ */
 class LuminaryIconRadio extends HTMLElement {
     // Declare the private field for the internal input element.
     #input = null;
