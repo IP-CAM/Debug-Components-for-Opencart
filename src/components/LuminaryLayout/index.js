@@ -1,64 +1,55 @@
 import templateHTML from './template.html?raw'
+import { LUMINARY_NAMESPACE } from '@/constants.js'
 
 const template = document.createElement('template')
 template.innerHTML = templateHTML
 
+/**
+ * Root layout container component that manages page structure and document title.
+ *
+ * @example
+ * ```html
+ * <luminary-layout id="layout-main">
+ *   <luminary-header slot="header">...</luminary-header>
+ *   <luminary-stack-trace slot="main">...</luminary-stack-trace>
+ * </luminary-layout>
+ * ```
+ */
 class LuminaryLayout extends HTMLElement {
+    #unsubscribe = null
+
     constructor() {
         super()
         this.attachShadow({ mode: 'open' })
         this.shadowRoot.append(template.content.cloneNode(true))
     }
 
-    static get observedAttributes() {
-        return ['title']
-    }
-
     connectedCallback() {
-        this.#updatePageTitle()
-        this.#setupColorScheme()
-    }
-
-    attributeChangedCallback(name, oldValue, newValue) {
-        if (name === 'title') {
-            this.#updatePageTitle()
+        if (window[LUMINARY_NAMESPACE]?.LuminaryStore) {
+            this.#unsubscribe = window[LUMINARY_NAMESPACE].LuminaryStore.subscribe(
+                `${this.constructor.name}:${this.id}`,
+                (layoutData) => this.render(layoutData)
+            )
+        } else {
+            console.warn('LuminaryStore not found. Import luminary-store.js or main.js first.')
         }
     }
 
-    #updatePageTitle() {
-        const title = this.getAttribute('title')
+    disconnectedCallback() {
+        this.#unsubscribe?.()
+    }
+
+    render(layoutData) {
+        if (!layoutData || typeof layoutData !== 'object') {
+            return
+        }
+
+        this.#updatePageTitle(layoutData.title)
+    }
+
+    #updatePageTitle(title) {
         if (title && document.title !== title) {
             document.title = title
-        }
-    }
-
-    #setupColorScheme() {
-        document.documentElement.style.colorScheme = 'light dark'
-
-        this.#syncColorScheme()
-
-        const observer = new MutationObserver(() => {
-            this.#syncColorScheme()
-        })
-
-        observer.observe(document.documentElement, {
-            attributes: true,
-            attributeFilter: ['data-theme']
-        })
-    }
-
-    #syncColorScheme() {
-        const theme = document.documentElement.getAttribute('data-theme')
-
-        switch (theme) {
-            case 'light':
-                document.documentElement.style.colorScheme = 'light'
-                break
-            case 'dark':
-                document.documentElement.style.colorScheme = 'dark'
-                break
-            default:
-                document.documentElement.style.colorScheme = 'light dark'
         }
     }
 }

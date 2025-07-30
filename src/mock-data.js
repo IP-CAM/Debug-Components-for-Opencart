@@ -252,6 +252,10 @@ window[LUMINARY_NAMESPACE].initialState = {
             { type: 'comment', content: '// Create new user instance' }
         ]
     },
+
+    'LuminaryLayout:layout-main': {
+        title: 'InvalidArgumentException | Debug'
+    },
 }
 
 window.updateTechInfo = function(componentId, newData) {
@@ -336,6 +340,16 @@ window.updateStackTrace = function(componentId, newData) {
 window.updateCodeLine = function(lineId, newData) {
     if (window[LUMINARY_NAMESPACE].LuminaryStore) {
         const stateKey = `LuminaryCodeLine:${lineId}`
+        window[LUMINARY_NAMESPACE].LuminaryStore.state[stateKey] = newData
+        console.log(`Updated ${stateKey}:`, newData)
+    } else {
+        console.error('LuminaryStore not initialized yet')
+    }
+}
+
+window.updateLayout = function(componentId, newData) {
+    if (window[LUMINARY_NAMESPACE].LuminaryStore) {
+        const stateKey = `LuminaryLayout:${componentId}`
         window[LUMINARY_NAMESPACE].LuminaryStore.state[stateKey] = newData
         console.log(`Updated ${stateKey}:`, newData)
     } else {

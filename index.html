@@ -7,7 +7,7 @@
         <script type="module" src="/src/mock-data.js"></script>
     </head>
     <body>
-        <luminary-layout title="InvalidArgumentException | Debug">
+        <luminary-layout id="layout-main">
             <luminary-header
                 id="header-main"
                 slot="header"
@@ -90,6 +90,11 @@
                 console.log('luminary-code-line registered:', !!customElements.get('luminary-code-line'));
                 console.log('\nExample usage:');
                 console.log('updateCodeLine("frame-1-line-0", {number: 100, isError: true, tokens: [{type: "keyword", content: "echo"}]})');
+
+                console.log('\n=== Testing LuminaryLayout ===');
+                console.log('luminary-layout registered:', !!customElements.get('luminary-layout'));
+                console.log('\nExample usage:');
+                console.log('updateLayout("layout-main", {title: "Custom Page Title | Debug"})');
             }, 1000);
         </script>
     </body>

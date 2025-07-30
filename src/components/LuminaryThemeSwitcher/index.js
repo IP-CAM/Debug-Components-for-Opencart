@@ -1,13 +1,22 @@
 import templateHTML from './template.html?raw';
+import { THEME_STORAGE_KEY } from '@/constants.js';
 
 const template = document.createElement('template');
 template.innerHTML = templateHTML;
 
+/**
+ * Theme switcher component that manages application color scheme.
+ * Handles light, dark, and auto (system) themes with persistence.
+ *
+ * @example
+ * ```html
+ * <luminary-theme-switcher></luminary-theme-switcher>
+ * ```
+ */
 class LuminaryThemeSwitcher extends HTMLElement {
     #radioButtons = null;
     #indicator = null;
     #currentTheme = 'auto';
-    #THEME_KEY = 'luminary-theme';
     #handleSystemThemeChange = this.#onSystemThemeChange.bind(this);
 
     constructor() {
@@ -15,6 +24,7 @@ class LuminaryThemeSwitcher extends HTMLElement {
         this.attachShadow({ mode: 'open' });
         this.shadowRoot.append(template.content.cloneNode(true));
 
+        this.#setupColorScheme();
         this.#applyInitialTheme();
     }
 
@@ -29,9 +39,38 @@ class LuminaryThemeSwitcher extends HTMLElement {
         .removeEventListener('change', this.#handleSystemThemeChange);
     }
 
+    #setupColorScheme() {
+        document.documentElement.style.colorScheme = 'light dark';
+        this.#syncColorScheme();
+
+        const observer = new MutationObserver(() => {
+            this.#syncColorScheme();
+        });
+
+        observer.observe(document.documentElement, {
+            attributes: true,
+            attributeFilter: ['data-theme']
+        });
+    }
+
+    #syncColorScheme() {
+        const theme = document.documentElement.getAttribute('data-theme');
+
+        switch (theme) {
+            case 'light':
+                document.documentElement.style.colorScheme = 'light';
+                break;
+            case 'dark':
+                document.documentElement.style.colorScheme = 'dark';
+                break;
+            default:
+                document.documentElement.style.colorScheme = 'light dark';
+        }
+    }
+
     #applyInitialTheme() {
         try {
-            const savedTheme = localStorage.getItem(this.#THEME_KEY);
+            const savedTheme = localStorage.getItem(THEME_STORAGE_KEY);
             const root = document.documentElement;
 
             if (savedTheme) {
@@ -45,7 +84,7 @@ class LuminaryThemeSwitcher extends HTMLElement {
     }
 
     #initializeComponentUI() {
-        const savedTheme = localStorage.getItem(this.#THEME_KEY);
+        const savedTheme = localStorage.getItem(THEME_STORAGE_KEY);
         this.#currentTheme = savedTheme || 'auto';
         this.#updateRadioStates();
         this.#updateIndicatorPosition();
@@ -58,16 +97,16 @@ class LuminaryThemeSwitcher extends HTMLElement {
         switch (theme) {
             case 'light':
                 root.setAttribute('data-theme', 'light');
-                localStorage.setItem(this.#THEME_KEY, 'light');
+                localStorage.setItem(THEME_STORAGE_KEY, 'light');
                 break;
             case 'dark':
                 root.setAttribute('data-theme', 'dark');
-                localStorage.setItem(this.#THEME_KEY, 'dark');
+                localStorage.setItem(THEME_STORAGE_KEY, 'dark');
                 break;
             case 'auto':
             default:
                 root.removeAttribute('data-theme');
-                localStorage.removeItem(this.#THEME_KEY);
+                localStorage.removeItem(THEME_STORAGE_KEY);
                 break;
         }
 
@@ -84,8 +123,6 @@ class LuminaryThemeSwitcher extends HTMLElement {
         this.#radioButtons.forEach(radio => {
             const isChecked = radio.getAttribute('value') === this.#currentTheme;
 
-            // Use setAttribute and removeAttribute to control the visual state
-            // of the custom element, as it likely relies on the attribute for styling.
             if (isChecked) {
                 radio.setAttribute('checked', '');
             } else {
@@ -121,5 +158,4 @@ class LuminaryThemeSwitcher extends HTMLElement {
 }
 
 customElements.define('luminary-theme-switcher', LuminaryThemeSwitcher);
-
 export { LuminaryThemeSwitcher };
