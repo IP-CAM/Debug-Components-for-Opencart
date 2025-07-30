@@ -9,13 +9,14 @@ export default defineConfig({
             '@assets': resolve(__dirname, 'src/assets'),
             '@fonts': resolve(__dirname, 'src/assets/fonts'),
             '@css': resolve(__dirname, 'src/assets/css'),
-            '@components': resolve(__dirname, 'src/components')
+            '@components': resolve(__dirname, 'src/components'),
         }
     },
     build: {
         rollupOptions: {
             input: {
-                luminary: resolve(__dirname, 'index.html'),
+                'main': resolve(__dirname, 'src/main.js'),
+                'luminary-store': resolve(__dirname, 'src/LuminaryStore'),
                 'luminary-code-line': resolve(__dirname, 'src/components/LuminaryCodeLine'),
                 'luminary-exceptions-chain': resolve(__dirname, 'src/components/LuminaryExceptionsChain'),
                 'luminary-header': resolve(__dirname, 'src/components/LuminaryHeader'),
@@ -26,7 +27,7 @@ export default defineConfig({
                 'luminary-suggestions': resolve(__dirname, 'src/components/LuminarySuggestions'),
                 'luminary-tech-info': resolve(__dirname, 'src/components/LuminaryTechInfo'),
                 'luminary-theme-switcher': resolve(__dirname, 'src/components/LuminaryThemeSwitcher'),
-                'main': resolve(__dirname, 'src/main.js'),
+                luminary: resolve(__dirname, 'index.html'),
             },
             output: {
                 entryFileNames: '[name].js',

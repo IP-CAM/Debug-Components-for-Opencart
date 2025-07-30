@@ -4,6 +4,7 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title></title>
+        <script type="module" src="/src/mock-data.js"></script>
     </head>
     <body>
         <luminary-layout title="InvalidArgumentException | Debug">
@@ -40,8 +41,8 @@
                     ]'
                 ></luminary-exceptions-chain>
                 <luminary-tech-info
+                    id="tech-info-main"
                     slot="tech-info"
-                    data-tech-info='{"PHP Version": "8.2.0", "Memory Usage": "128MB", "Execution Time": "0.045s", "Environment": "development"}'
                 ></luminary-tech-info>
             </luminary-header>
             <luminary-stack-trace
@@ -587,16 +588,13 @@
 
         <script>
             setTimeout(() => {
-                console.log('Component registration check:', {
-                    'luminary-code-line': !!customElements.get('luminary-code-line'),
-                    'luminary-header': !!customElements.get('luminary-header'),
-                    'luminary-icon-radio': !!customElements.get('luminary-icon-radio'),
-                    'luminary-layout': !!customElements.get('luminary-layout'),
-                    'luminary-stack-frame': !!customElements.get('luminary-stack-frame'),
-                    'luminary-tech-info': !!customElements.get('luminary-tech-info'),
-                    'luminary-theme-switcher': !!customElements.get('luminary-theme-switcher'),
-                })
-            }, 100)
+                console.log('=== Testing LuminaryTechInfo ===');
+
+                console.log('luminary-tech-info registered:', !!customElements.get('luminary-tech-info'));
+
+                console.log('\nExample usage:');
+                console.log('updateTechInfo("tech-info-main", {"New Field": "New Value"})');
+            }, 1000);
         </script>
     </body>
 </html>
