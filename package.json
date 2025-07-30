@@ -2,24 +2,57 @@
   "name": "@cartwryte/luminary",
   "version": "0.2.1",
   "description": "🔦 Beautiful debug components for OpenCart developers - illuminate your code with elegant debug output",
-  "main": "dist/main.js",
-  "module": "dist/main.js",
   "type": "module",
   "files": [
     "dist"
   ],
+  "main": "./dist/main.cjs.js",
+  "module": "./dist/main.es.js",
   "exports": {
-    ".": "./dist/main.js",
-    "./layout": "./dist/luminary-layout.js",
-    "./theme-switcher": "./dist/luminary-theme-switcher.js",
-    "./header": "./dist/luminary-header.js",
-    "./tech-info": "./dist/luminary-tech-info.js",
-    "./exceptions-chain": "./dist/luminary-exceptions-chain.js",
-    "./suggestions": "./dist/luminary-suggestions.js",
-    "./stack-trace": "./dist/luminary-stack-trace.js",
-    "./stack-frame": "./dist/luminary-stack-frame.js",
-    "./code-line": "./dist/luminary-code-line.js",
-    "./icon-radio": "./dist/luminary-icon-radio.js"
+    ".": {
+      "import": "./dist/main.es.js",
+      "require": "./dist/main.cjs.js"
+    },
+    "./layout": {
+      "import": "./dist/luminary-layout.es.js",
+      "require": "./dist/luminary-layout.cjs.js"
+    },
+    "./theme-switcher": {
+      "import": "./dist/luminary-theme-switcher.es.js",
+      "require": "./dist/luminary-theme-switcher.cjs.js"
+    },
+    "./header": {
+      "import": "./dist/luminary-header.es.js",
+      "require": "./dist/luminary-header.cjs.js"
+    },
+    "./tech-info": {
+      "import": "./dist/luminary-tech-info.es.js",
+      "require": "./dist/luminary-tech-info.cjs.js"
+    },
+    "./exceptions-chain": {
+      "import": "./dist/luminary-exceptions-chain.es.js",
+      "require": "./dist/luminary-exceptions-chain.cjs.js"
+    },
+    "./suggestions": {
+      "import": "./dist/luminary-suggestions.es.js",
+      "require": "./dist/luminary-suggestions.cjs.js"
+    },
+    "./stack-trace": {
+      "import": "./dist/luminary-stack-trace.es.js",
+      "require": "./dist/luminary-stack-trace.cjs.js"
+    },
+    "./stack-frame": {
+      "import": "./dist/luminary-stack-frame.es.js",
+      "require": "./dist/luminary-stack-frame.cjs.js"
+    },
+    "./code-line": {
+      "import": "./dist/luminary-code-line.es.js",
+      "require": "./dist/luminary-code-line.cjs.js"
+    },
+    "./icon-radio": {
+      "import": "./dist/luminary-icon-radio.es.js",
+      "require": "./dist/luminary-icon-radio.cjs.js"
+    }
   },
   "scripts": {
     "dev": "vite",
@@ -47,6 +80,7 @@
   "author": "Anton Semenov <20430159+trydalcoholic@users.noreply.github.com>",
   "license": "MIT",
   "devDependencies": {
+    "@laynezh/vite-plugin-lib-assets": "^2.1.0",
     "vite": "^7.0.6"
   }
 }

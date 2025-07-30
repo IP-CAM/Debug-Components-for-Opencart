@@ -1,8 +1,12 @@
 import { defineConfig } from 'vite'
 import { resolve } from 'path'
+import libAssetsPlugin from '@laynezh/vite-plugin-lib-assets'
 
 export default defineConfig({
     base: './',
+    plugins: [
+        libAssetsPlugin(),
+    ],
     resolve: {
         alias: {
             '@': resolve(__dirname, 'src'),
@@ -17,9 +21,9 @@ export default defineConfig({
         esbuildOptions: {
             drop: ['console', 'debugger'],
         },
-        rollupOptions: {
-            input: {
-                'main': resolve(__dirname, 'src/main.js'),
+        lib: {
+            entry: {
+                'main': resolve(__dirname, 'src/main'),
                 'luminary-store': resolve(__dirname, 'src/LuminaryStore'),
                 'luminary-code-line': resolve(__dirname, 'src/components/LuminaryCodeLine'),
                 'luminary-exceptions-chain': resolve(__dirname, 'src/components/LuminaryExceptionsChain'),
@@ -32,13 +36,15 @@ export default defineConfig({
                 'luminary-tech-info': resolve(__dirname, 'src/components/LuminaryTechInfo'),
                 'luminary-theme-switcher': resolve(__dirname, 'src/components/LuminaryThemeSwitcher'),
             },
+            name: 'Luminary',
+            formats: ['es', 'cjs'],
+            fileName: (format, entryName) => `${entryName}.${format}.js`
+        },
+        rollupOptions: {
             output: {
-                entryFileNames: '[name].js',
-                chunkFileNames: 'chunks/[name]-[hash].js',
                 assetFileNames: 'assets/[name].[ext]',
             }
         },
         assetsDir: 'assets',
-        assetsInlineLimit: 0,
     }
 })
