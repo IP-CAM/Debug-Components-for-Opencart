@@ -18,6 +18,15 @@ window[LUMINARY_NAMESPACE].initialState = {
         'Queue Driver': 'Database'
     },
 
+    'LuminarySuggestions:suggestions-main': {
+        title: 'How to fix this',
+        items: [
+            'Check if the email field is properly validated before processing',
+            'Ensure the request contains valid email data',
+            'Add null checks in the UserValidator class'
+        ]
+    },
+
     'LuminaryStackFrame:frame-1': {
         file: '/var/www/app/src/Validators/UserValidator.php',
         line: 28,
@@ -214,6 +223,16 @@ window.updateTechInfo = function(componentId, newData) {
 
         window[LUMINARY_NAMESPACE].LuminaryStore.state[stateKey] = newData
 
+        console.log(`Updated ${stateKey}:`, newData)
+    } else {
+        console.error('LuminaryStore not initialized yet')
+    }
+}
+
+window.updateSuggestions = function(componentId, newData) {
+    if (window[LUMINARY_NAMESPACE].LuminaryStore) {
+        const stateKey = `LuminarySuggestions:${componentId}`
+        window[LUMINARY_NAMESPACE].LuminaryStore.state[stateKey] = newData
         console.log(`Updated ${stateKey}:`, newData)
     } else {
         console.error('LuminaryStore not initialized yet')

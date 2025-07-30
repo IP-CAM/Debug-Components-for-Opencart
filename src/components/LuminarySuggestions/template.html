@@ -11,23 +11,17 @@
         /* Text colors */
         --color-title-text: light-dark(oklch(20% 0.01 260), oklch(95% 0.01 260));
         --color-suggestion-text: light-dark(oklch(20% 0.01 260), oklch(95% 0.01 260));
-        --color-suggestion-icon: light-dark(oklch(45% 0.15 120), oklch(70% 0.12 120));
 
         /* Spacing */
         --space-container-padding: 1rem;
         --space-title-margin: 0 0 1rem 0;
         --space-list-gap: 0.75rem;
-        --space-item-gap: 0.5rem;
-        --space-icon-margin: 0 0.5rem 0 0;
 
         /* Typography */
         --font-size-title: 1.125rem;
         --font-weight-title: 600;
         --font-size-suggestion: 0.9rem;
         --line-height-suggestion: 1.5;
-
-        /* Icon */
-        --size-icon: 1rem;
 
         /* Border radius */
         --border-radius: 0.375rem;
@@ -64,18 +58,9 @@
     .suggestions__item {
         display: flex;
         align-items: flex-start;
-        gap: var(--space-item-gap);
         font-size: var(--font-size-suggestion);
         line-height: var(--line-height-suggestion);
         color: var(--color-suggestion-text);
-    }
-
-    .suggestions__icon {
-        inline-size: var(--size-icon);
-        block-size: var(--size-icon);
-        flex-shrink: 0;
-        margin-block-start: 0.125rem; /* Slight visual alignment */
-        fill: var(--color-suggestion-icon);
     }
 
     .suggestions__text {

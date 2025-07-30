@@ -96,8 +96,6 @@ class LuminaryStackFrame extends HTMLElement {
     }
 
     #updateCodeLines(codeLines) {
-        console.log('Available code line elements:', this.#codeLineElements.length)
-
         if (!Array.isArray(codeLines) || codeLines.length === 0) {
             this.#codeLinesEl.replaceChildren()
             return
@@ -109,7 +107,6 @@ class LuminaryStackFrame extends HTMLElement {
         codeLines.forEach((lineData, index) => {
             const lineElement = elementsToShow[index]
             if (lineElement?.id) {
-                console.log(`Updating line ${lineElement.id}:`, lineData)
                 window[LUMINARY_NAMESPACE].LuminaryStore.state[`LuminaryCodeLine:${lineElement.id}`] = lineData
             }
         })
