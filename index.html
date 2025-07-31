@@ -4,98 +4,27 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title></title>
-        <script type="module" src="/src/mock-data.js"></script>
+        <script type="module">
+            import { mockInitialState } from '@/mock-data.js';
+
+            window.__LUMINARY__ = {
+                initialState: mockInitialState
+            };
+        </script>
+        <script type="module">
+            import '@/main.js';
+        </script>
     </head>
     <body>
         <luminary-layout id="layout-main">
-            <luminary-header
-                id="header-main"
-                slot="header"
-                class="container"
-            >
-                <luminary-suggestions
-                    id="suggestions-main"
-                    slot="suggestions"
-                ></luminary-suggestions>
-                <luminary-exceptions-chain
-                    id="exceptions-main"
-                    slot="exceptions-chain"
-                ></luminary-exceptions-chain>
-                <luminary-tech-info
-                    id="tech-info-main"
-                    slot="tech-info"
-                ></luminary-tech-info>
+            <luminary-header id="header-main" slot="header" class="container">
+                <luminary-exceptions-chain id="exceptions-main" slot="exceptions-chain"></luminary-exceptions-chain>
+                <luminary-suggestions id="suggestions-main" slot="suggestions"></luminary-suggestions>
+                <luminary-tech-info id="tech-info-main" slot="tech-info"></luminary-tech-info>
             </luminary-header>
-            <luminary-stack-trace
-                id="stack-trace-main"
-                slot="main"
-                class="container"
-            >
-                <luminary-stack-frame id="frame-1">
-                    <luminary-code-line id="frame-1-line-0"></luminary-code-line>
-                    <luminary-code-line id="frame-1-line-1"></luminary-code-line>
-                    <luminary-code-line id="frame-1-line-2"></luminary-code-line>
-                    <luminary-code-line id="frame-1-line-3"></luminary-code-line>
-                    <luminary-code-line id="frame-1-line-4"></luminary-code-line>
-                    <luminary-code-line id="frame-1-line-5"></luminary-code-line>
-                    <luminary-code-line id="frame-1-line-6"></luminary-code-line>
-                </luminary-stack-frame>
 
-                <luminary-stack-frame id="frame-2">
-                    <luminary-code-line id="frame-2-line-0"></luminary-code-line>
-                    <luminary-code-line id="frame-2-line-1"></luminary-code-line>
-                    <luminary-code-line id="frame-2-line-2"></luminary-code-line>
-                    <luminary-code-line id="frame-2-line-3"></luminary-code-line>
-                    <luminary-code-line id="frame-2-line-4"></luminary-code-line>
-                </luminary-stack-frame>
+            <luminary-stack-trace id="stack-trace-main" slot="main" class="container">
             </luminary-stack-trace>
         </luminary-layout>
-
-        <script type="module" src="/src/main.js"></script>
-
-        <script>
-            setTimeout(() => {
-                console.log('=== Testing LuminaryTechInfo ===');
-                console.log('luminary-tech-info registered:', !!customElements.get('luminary-tech-info'));
-                console.log('\nExample usage:');
-                console.log('updateTechInfo("tech-info-main", {"New Field": "New Value"})');
-
-                console.log('\n=== Testing LuminarySuggestions ===');
-                console.log('luminary-suggestions registered:', !!customElements.get('luminary-suggestions'));
-                console.log('\nExample usage:');
-                console.log('updateSuggestions("suggestions-main", {title: "New Tips", items: ["Tip 1", "Tip 2"]})');
-
-                console.log('\n=== Testing LuminaryExceptionsChain ===');
-                console.log('luminary-exceptions-chain registered:', !!customElements.get('luminary-exceptions-chain'));
-                console.log('\nExample usage:');
-                console.log('updateExceptionsChain("exceptions-main", {title: "Custom Chain", exceptions: [{class: "TestException", message: "Test error", file: "/test.php", line: 10}]})');
-
-                console.log('\n=== Testing LuminaryHeader ===');
-                console.log('luminary-header registered:', !!customElements.get('luminary-header'));
-                console.log('\nExample usage:');
-                console.log('updateHeader("header-main", {title: "New Error", message: "Something went wrong"})');
-
-                console.log('\n=== Testing LuminaryStackTrace ===');
-                console.log('luminary-stack-trace registered:', !!customElements.get('luminary-stack-trace'));
-                console.log('\nExample usage:');
-                console.log('updateStackTrace("stack-trace-main", {title: "Custom Stack Trace"})');
-
-                console.log('\n=== Testing LuminaryStackFrame ===');
-                console.log('luminary-stack-frame registered:', !!customElements.get('luminary-stack-frame'));
-                console.log('\nExample usage:');
-                console.log('toggleStackFrame("frame-2")');
-                console.log('updateStackFrame("frame-1", {file: "/new/file.php", line: 99, function: "test", open: true})');
-
-                console.log('\n=== Testing LuminaryCodeLine ===');
-                console.log('luminary-code-line registered:', !!customElements.get('luminary-code-line'));
-                console.log('\nExample usage:');
-                console.log('updateCodeLine("frame-1-line-0", {number: 100, isError: true, tokens: [{type: "keyword", content: "echo"}]})');
-
-                console.log('\n=== Testing LuminaryLayout ===');
-                console.log('luminary-layout registered:', !!customElements.get('luminary-layout'));
-                console.log('\nExample usage:');
-                console.log('updateLayout("layout-main", {title: "Custom Page Title | Debug"})');
-            }, 1000);
-        </script>
     </body>
 </html>

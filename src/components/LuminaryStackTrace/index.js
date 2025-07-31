@@ -15,7 +15,8 @@ template.innerHTML = templateHTML
  * ```
  */
 class LuminaryStackTrace extends HTMLElement {
-    #titleElement = null
+    #titleElement = null;
+    #containerElement = null;
     #renderTimeout = null
     #unsubscribe = null
 
@@ -25,6 +26,7 @@ class LuminaryStackTrace extends HTMLElement {
 
         const content = template.content.cloneNode(true)
         this.#titleElement = content.querySelector('.stack-trace__title')
+        this.#containerElement = content.querySelector('.stack-trace__frames')
         this.shadowRoot.append(content)
     }
 
@@ -60,19 +62,45 @@ class LuminaryStackTrace extends HTMLElement {
     }
 
     #performRender(data) {
-        if (!data || isEmptyObject(data)) {
-            this.setAttribute('empty', '')
-            if (this.#titleElement) {
-                this.#titleElement.textContent = 'Stack Trace'
-            }
-            return
-        }
-
-        this.removeAttribute('empty')
+        this.toggleAttribute('empty', !data);
 
         if (this.#titleElement) {
-            this.#titleElement.textContent = data.title || 'Stack Trace'
+            this.#titleElement.textContent = data?.title || 'Stack Trace';
         }
+
+        this.#containerElement.innerHTML = '';
+
+        if (!data?.frames || !Array.isArray(data.frames)) {
+            return;
+        }
+
+        const store = window[LUMINARY_NAMESPACE]?.LuminaryStore;
+
+        if (!store) {
+            console.warn('LuminaryStore not found during child rendering.');
+            return;
+        }
+
+        const fragment = document.createDocumentFragment();
+
+        data.frames.forEach(frameData => {
+            const frameEl = document.createElement('luminary-stack-frame');
+            frameEl.id = frameData.id;
+
+            store.state[`LuminaryStackFrame:${frameData.id}`] = frameData;
+
+            frameData.codeLines.forEach((lineData, lineIndex) => {
+                const lineId = `${frameData.id}-line-${lineIndex}`;
+                const lineEl = document.createElement('luminary-code-line');
+                lineEl.id = lineId;
+                store.state[`LuminaryCodeLine:${lineId}`] = lineData;
+                frameEl.appendChild(lineEl);
+            });
+
+            fragment.appendChild(frameEl);
+        });
+
+        this.#containerElement.appendChild(fragment);
     }
 }
 
