@@ -1,6 +1,6 @@
 {
   "name": "@cartwryte/luminary",
-  "version": "0.3.1",
+  "version": "0.4.0",
   "description": "🔦 Beautiful debug components for OpenCart developers - illuminate your code with elegant debug output",
   "type": "module",
   "files": [
